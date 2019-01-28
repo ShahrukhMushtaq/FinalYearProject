@@ -1,0 +1,64 @@
+<main style="margin: 5px">
+    <div class="container-fluid text-center">
+        <div class="card card-cascade wider reverse my-4">
+            <div class="card-body text-center wow fadeIn" data-wow-delay="0.2s">
+                <h4 class="card-title"><strong>Search Auctions</strong></h4>
+                <!-- <h5 class="blue-text"><strong>Photography</strong></h5>
+                <p class="card-text">Sed ut perspiciatis unde omnis iste natus sit voluptatem accusantium doloremque
+                    laudantium, totam rem aperiam.
+                </p>
+                <a class="btn btn-primary btn-lg">Primary button</a>
+                <a class="btn btn-secondary btn-lg">Secondary button</a>
+                <a class="btn btn-default btn-lg">Default button</a> -->
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <!-- <textarea class="form-control md-textarea" id="textarea" placeholder="Material select"></textarea> -->
+
+                        <form class="md-form" style="color: #757575;">
+                            <input type="text" class="form-control col-md-3" placeholder="Search By Category">
+                            <input type="text" class="form-control col-md-3" placeholder="Search By Category">
+                            <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect col-md-3"
+                                type="submit">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4" *ngFor="let i of [0,1,2,3,4,5]">
+            <!-- Card Dark -->
+            <div class="card" style="margin:5px">
+
+                <!-- Card image -->
+                <div class="view overlay">
+                    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2821%29.jpg"
+                        alt="Card image cap">
+                    <a>
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
+
+                <!-- Card content -->
+                <div class="card-body elegant-color white-text rounded-bottom">
+
+                    <!-- Social shares button -->
+                    <a class="activator waves-effect mr-4"><i class="fa fa-share-alt white-text"></i></a>
+                    <!-- Title -->
+                    <h4 class="card-title">Card title</h4>
+                    <hr class="hr-light">
+                    <!-- Text -->
+                    <p class="card-text white-text mb-4">Some quick example text to build on the card title and make up
+                        the bulk of the card's content.</p>
+                    <!-- Link -->
+                    <a href="#!" class="white-text d-flex justify-content-end">
+                        <h5>Read more <i class="fa fa-angle-double-right"></i></h5>
+                    </a>
+
+                </div>
+
+            </div>
+            <!-- Card Dark -->
+        </div>
+    </div>
+</main>
