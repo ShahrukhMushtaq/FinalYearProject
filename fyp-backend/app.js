@@ -14,7 +14,8 @@ var usersRouter = require('./routes/users');
 var modules = require('./routes/modules');
 
 var app = express();
-mongoose.connect('mongodb://localhost:27017/auction', { useNewUrlParser: true, useCreateIndex: true });
+// mongoose.connect('mongodb://localhost:27017/auction', { useNewUrlParser: true, useCreateIndex: true });
+mongoose.connect('mongodb://shahrukh:shahrukh0auction@ds213705.mlab.com:13705/auction-base', { useNewUrlParser: true, useCreateIndex: true });
 mongoose.connection.on('connected', () => {
   console.log('Connected to database mongodb @ 27017');
 });
