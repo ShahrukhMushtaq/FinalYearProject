@@ -2,11 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpInterceptorService } from "./http-interceptor.service";
 import { AuthGuard } from "./services/auth-guard.service";
 import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
+import { FileUploadModule } from 'ng2-file-upload';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
@@ -57,17 +60,23 @@ function getToken() {
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken
       }
     }),
     RouterModule.forRoot(routes),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SnotifyModule,
+    FileUploadModule,
+    NgxSpinnerModule
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
     JwtHelperService,
-    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }
+    { provide: 'SnotifyToastConfig', useValue: ToastDefaults },
+    SnotifyService
   ],
   bootstrap: [AppComponent]
 })

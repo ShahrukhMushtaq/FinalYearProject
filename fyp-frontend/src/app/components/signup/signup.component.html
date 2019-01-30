@@ -1,44 +1,65 @@
 <div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
+    <div class="col-md-3"></div>
+    <div class="col-md-5">
         <div class="card">
             <h5 class="card-header info-color white-text text-center py-4">
                 <strong>Sign up</strong>
             </h5>
             <div class="card-body px-lg-5 pt-0">
-                <form class="text-center" style="color: #757575;">
+                <form [formGroup]="registrationForm" (submit)="signup()" class="text-center" style="color: #757575;">
                     <div class="form-row">
                         <div class="col">
                             <div class="md-form">
-                                <input type="text" id="materialRegisterFormFirstName" class="form-control" placeholder="First Name">
+                                <input type="text" formControlName="firstName" class="form-control" placeholder="First Name">
                             </div>
                         </div>
                         <div class="col">
                             <div class="md-form">
-                                <input type="email" id="materialRegisterFormLastName" class="form-control" placeholder="Last Name">
-                                <!-- <label for="materialRegisterFormLastName">Last name</label> -->
+                                <input type="email" formControlName="lastName" class="form-control" placeholder="Last Name">
                             </div>
                         </div>
                     </div>
                     <div class="md-form mt-0">
-                        <input type="email" id="materialRegisterFormEmail" class="form-control" placeholder="E-mail">
-                        <!-- <label for="materialRegisterFormEmail">E-mail</label> -->
+                        <input type="email" formControlName="email" class="form-control" placeholder="E-mail">
+                        <small *ngIf="email.touched && email.invalid" class="form-text text-muted mb-4">Invalid Email</small>
                     </div>
                     <div class="md-form">
-                        <input type="password" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock"
-                            placeholder="Password">
-                        <!-- <label for="materialRegisterFormPassword">Password</label> -->
-                        <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
-                            At least 8 characters and 1 digit
-                        </small>
+                        <input type="password" formControlName="password" class="form-control" placeholder="Password">
+                        <small *ngIf="password.touched && password.invalid" class="form-text text-muted mb-4">Invalid
+                            Password</small>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="md-form">
+                                <input type="number" formControlName="age" class="form-control" placeholder="Your Age">
+                                <small *ngIf="age.touched && age.invalid" class="form-text text-muted mb-4">Invalid Age</small>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="md-form">
+                                <input type="number" formControlName="phone" class="form-control" placeholder="Phone Number">
+                                <small *ngIf="phone.touched && phone.invalid" class="form-text text-muted mb-4">Invalid
+                                    Phone Number</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button type="button" class="input-group-text" (click)="upload()" id="inputGroupFileAddon01">Upload</button>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="inputGroupFile01"
+                                aria-describedby="inputGroupFileAddon01">
+                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                        </div>
                     </div>
                     <div class="md-form">
-                        <input type="number" id="materialRegisterFormPhone" class="form-control" placeholder="Phone Number"
-                            aria-describedby="materialRegisterFormPhoneHelpBlock">
-                        <!-- <label for="materialRegisterFormPhone">Phone number</label> -->
+                        <input type="text" formControlName="location" class="form-control" placeholder="Enter Your Location">
+                        <small *ngIf="registrationForm.get('location').touched && registrationForm.get('location').invalid"
+                            class="form-text text-muted mb-4">Location is Required</small>
                     </div>
-                    <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign
-                        up</button>
+                    <!--  [disabled]="registrationForm.invalid" -->
+                    <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">Signup</button>
                     <p>Already have an account?
                         <a routerLink="/login">Signin</a>
                     </p>
