@@ -4,13 +4,13 @@ const jwt = require('jsonwebtoken')
 const Joi = require('joi')
 module.exports = async (req, res) => {
     const { error } = validateUser(req.body)
-    if (error) return res.status(400).send({ message: error.details[0].message, status: 400 })
+    if (error) return res.status(400).send({ message: error.details[0].message, status: 400, content: "" })
     let user = await User.findOne({ email: req.body.email })
-    if (!user) return res.status(400).send({ message: "Invalid email or password", status: 400 })
+    if (!user) return res.status(400).send({ message: "Invalid email or password", status: 400, content: "" })
     const validPassword = await bcrypt.compare(req.body.password, user.password)
-    if (!validPassword) return res.status(400).send({ message: "Invalid email or password", status: 400 })
+    if (!validPassword) return res.status(400).send({ message: "Invalid email or password", status: 400, content: "" })
     const token = user.generateAuthToken()
-    res.header("x-access-token", token).send({ messsage: "User Authenticated", status: 200 })
+    res.header("x-access-token", token).send({ message: "User Authenticated", status: 200, content: token })
 }
 
 function validateUser(user) {

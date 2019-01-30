@@ -7,7 +7,13 @@ const user = new mongoose.Schema({
         unique: true,
         match: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     },
-    name: {
+    firstName: {
+        type: String,
+        required: true,
+        minlength: 5,
+        maxlength: 20
+    },
+    lastName: {
         type: String,
         required: true,
         minlength: 5,
@@ -19,7 +25,7 @@ const user = new mongoose.Schema({
         minlength: 5,
         maxlength: 250
     },
-    avtar: {
+    avatar: {
         type: String
     },
     location: {
@@ -30,6 +36,9 @@ const user = new mongoose.Schema({
         type: Number,
         min: 18,
         max: 70
+    },
+    phone: {
+        type: Number
     }
 });
 

@@ -21,7 +21,7 @@ const upload = multer({
   }
 });
 
-router.post('/register', upload.single('avtar'), signup);
+router.post('/register', signup);
 router.post('/login', login)
 router.get('/my/profile', auth, profile)
 
