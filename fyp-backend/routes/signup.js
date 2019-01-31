@@ -6,9 +6,9 @@ const jwt = require('jsonwebtoken')
 
 module.exports = async (req, res) => {
     const { error } = validateUser(req.body);
-    if (error) return res.status(400).send({ message: error.details[0].message, status: 400, content:"" })
+    if (error) return res.status(400).send({ message: error.details[0].message, status: 400, content: "" })
     let user = await User.findOne({ email: req.body.email })
-    if (user) return res.status(400).send({ message: "User already exist", status: 400, content:"" })
+    if (user) return res.status(400).send({ message: "You have already registered", status: 400, content: "" })
     user = new User({
         email: req.body.email,
         firstName: req.body.firstName,
@@ -18,6 +18,8 @@ module.exports = async (req, res) => {
         location: req.body.location,
         age: req.body.age,
         phone: req.body.phone,
+        gender: req.body.gender,
+        about: req.body.about
     });
     const salt = await bcrypt.genSalt(10)
     user.password = await bcrypt.hash(user.password, salt)
@@ -35,7 +37,9 @@ function validateUser(user) {
         age: Joi.number().integer().min(18).max(70).required(),
         phone: Joi.number().required(),
         location: Joi.string().required(),
+        gender: Joi.string().required(),
         avatar: Joi.string(),
+        about: Joi.string(),
     }
     return Joi.validate(user, schema)
 }
