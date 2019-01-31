@@ -1,11 +1,51 @@
 <div class="card testimonial-card">
   <div class="card-up indigo lighten-2"></div>
   <div class="avatar mx-auto white">
-    <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg" class="rounded-circle" alt="woman avatar">
+    <img src={{getPicture()}} class="rounded-circle" alt="avatar">
   </div>
   <div class="card-body">
-    <h4 class="card-title">Anna Doe</h4>
+    <h4 class="card-title">{{userData.firstName +" "+ userData.lastName}}</h4>
     <hr>
-    <p><i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, adipisci</p>
+    <p class="card-text">Email: {{userData.email}}</p>
+    <p class="card-text">Age: {{userData.age}}</p>
+    <p class="card-text">Phone: {{userData.phone}}</p>
+    <p class="card-text">Gender: {{userData.gender}}</p>
+    <p class="card-text">Location: {{userData.location}}</p>
+    <p><i class="fa fa-quote-left"></i> {{userData.about}}<i class="fa fa-quote-right"></i></p>
+  </div>
+  <div class="text-center">
+    <a style="font-size:30px" (click)="openModal(updatePro)">
+      <i class="fa fa-refresh" aria-hidden="true"></i>Update Profile</a>
   </div>
 </div>
+<ng-template #updatePro>
+  <div class="modal-header">
+    <h4 class="modal-title">Update Your Info</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <div class="form-group">
+      <input type="text" [(ngModel)]="userData.firstName" class="form-control" placeholder="Enter First Name">
+      <input type="text" [(ngModel)]="userData.lastName" class="form-control" placeholder="Enter Last Name">
+      <input type="text" [(ngModel)]="userData.age" class="form-control" placeholder="Enter Age">
+      <input type="text" [(ngModel)]="userData.gender" class="form-control" placeholder="Enter Your Gender">
+      <input type="text" [(ngModel)]="userData.phone" class="form-control" placeholder="Enter Phone">
+      <input type="text" [(ngModel)]="userData.location" class="form-control" placeholder="Enter Location">
+      <input type="text" [(ngModel)]="userData.about" class="form-control" placeholder="About Me">
+      <div class="input-group">
+        <div class="input-group-prepend">
+            <button type="button" class="input-group-text" (click)="upload()">Upload</button>
+        </div>
+        <div class="custom-file">
+            <input type="file" ng2FileSelect [uploader]="uploader" class="custom-file-input">
+            <label class="custom-file-label">Choose file</label>
+        </div>
+    </div>
+    </div>
+    <div class="form-group">
+      <button type="button" class="btn btn-primary" (click)="updateProfile()">Update Me</button>
+    </div>
+  </div>
+</ng-template>

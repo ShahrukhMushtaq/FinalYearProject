@@ -42,8 +42,12 @@ export class AuthService {
     return this.http.post("http://localhost:3000/api/register", data)
   }
 
-  getUserProfile(){
+  getUserProfile() {
     return this.http.get("http://localhost:3000/api/my/profile")
+  }
+
+  updateUserProfile(data) { 
+    return this.http.put(`http://localhost:3000/api/my/update-profile/${data._id}` , data)
   }
 
   getConfig(): SnotifyToastConfig {
