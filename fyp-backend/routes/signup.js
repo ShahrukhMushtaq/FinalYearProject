@@ -28,8 +28,8 @@ module.exports = async (req, res) => {
 
 function validateUser(user) {
     const schema = {
-        firstName: Joi.string().min(5).max(20).required(),
-        lastName: Joi.string().min(5).max(20).required(),
+        firstName: Joi.string().max(20).required(),
+        lastName: Joi.string().max(20).required(),
         email: Joi.string().email().required(),
         password: Joi.string().min(5).max(1024).required(),
         age: Joi.number().integer().min(18).max(70).required(),

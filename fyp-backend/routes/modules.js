@@ -3,6 +3,7 @@ var router = express.Router();
 var signup = require('./signup');
 var login = require('./login');
 var profile = require('./profile')
+var updateProfile = require('./update-profile')
 var auth = require('../middleware/auth')
 
 const multer = require('multer');
@@ -24,5 +25,6 @@ const upload = multer({
 router.post('/register', signup);
 router.post('/login', login)
 router.get('/my/profile', auth, profile)
+router.put('/my/update-profile/:id', auth, updateProfile)
 
 module.exports = router;

@@ -10,13 +10,11 @@ const user = new mongoose.Schema({
     firstName: {
         type: String,
         required: true,
-        minlength: 5,
         maxlength: 20
     },
     lastName: {
         type: String,
         required: true,
-        minlength: 5,
         maxlength: 20
     },
     password: {
@@ -39,6 +37,12 @@ const user = new mongoose.Schema({
     },
     phone: {
         type: Number
+    },
+    gender: {
+        type: String
+    },
+    about: {
+        type: String
     }
 });
 
