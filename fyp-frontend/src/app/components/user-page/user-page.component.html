@@ -1,15 +1,35 @@
 <div class="row">
-  <div class="col-md-2">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item"><a routerLink="profile">Profile <i class="fa fa-angle-right"></i></a></li>
-      <li class="list-group-item"><a routerLink="create-auction">Create Auction <i class="fa fa-angle-right"></i></a></li>
-      <li class="list-group-item"><a routerLink="profile">Your Current Auctions <i class="fa fa-angle-right"></i></a></li>
-      <li class="list-group-item"><a routerLink="profile">Your Expired Auctions <i class="fa fa-angle-right"></i></a></li>
-      <li class="list-group-item"><a routerLink="profile">Winning Items <i class="fa fa-angle-right"></i></a></li>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <ul class="nav nav-tabs" role="tablist" id="uls">
+      <li class="nav-item">
+        <a class="nav-link" #pro routerLink="profile" (click)="setClass(pro)" role="tab" aria-selected="true">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" #it routerLink="items" (click)="setClass(it)" role="tab" aria-selected="false">Add
+          Items</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" #auc routerLink="create-auction" (click)="setClass(auc)" role="tab" aria-selected="false">Create
+          Auction</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" #cur routerLink="create-auction" (click)="setClass(cur)" role="tab" aria-selected="false">Your
+          Current Auctions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" #exp routerLink="create-auction" (click)="setClass(exp)" role="tab" aria-selected="false">Your
+          Expired Auctions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" #win routerLink="create-auction" (click)="setClass(win)" role="tab" aria-selected="false">Winning
+          Items</a>
+      </li>
     </ul>
   </div>
-  <div class="col-md-2"></div>
-  <div class="col-md-5">
+</div>
+<div class="row tab-content text-center" id="myTabContent">
+  <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3"></div>
+  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
     <router-outlet></router-outlet>
   </div>
 </div>
