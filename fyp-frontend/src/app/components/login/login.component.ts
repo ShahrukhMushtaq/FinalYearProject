@@ -26,20 +26,25 @@ export class LoginComponent implements OnInit {
       email: this.email,
       password: this.password
     }
-    this.auth.login(data)
-      .subscribe(res => {
-        if (res['status'] == 200) {
-          this.snotifyService.success(res['message'], this.auth.getConfig());
-          this.router.navigate(['user']);
-        } else {
-          this.snotifyService.warning(res['message'], this.auth.getConfig());
-          this.email = '';
-          this.password = '';
-        }
-      }, err => {
-        this.snotifyService.error(err.error.message, this.auth.getConfig())
-        console.log(err)
-      })
+    if (data.email == undefined || data.password == undefined) {
+      this.snotifyService.warning("Incomplete Credentials", this.auth.getConfig())
+    }
+    else {
+      this.auth.login(data)
+        .subscribe(res => {
+          if (res['status'] == 200) {
+            // this.snotifyService.success(res['message'], this.auth.getConfig());
+            this.router.navigate(['user']);
+          } else {
+            this.snotifyService.warning(res['message'], this.auth.getConfig());
+            this.email = '';
+            this.password = '';
+          }
+        }, err => {
+          this.snotifyService.error(err.error.message, this.auth.getConfig())
+          console.log(err)
+        })
+    }
   }
 
 }
