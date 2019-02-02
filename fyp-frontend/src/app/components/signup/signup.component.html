@@ -1,6 +1,6 @@
 <div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-5">
+    <div class="col-md-3 col-sm-3 col-xs-3"></div>
+    <div class="col-md-5 col-sm-5 col-xs-5">
         <div class="card">
             <h5 class="card-header info-color white-text text-center py-4">
                 <strong>Sign up</strong>
@@ -58,7 +58,19 @@
                         <small *ngIf="registrationForm.get('location').touched && registrationForm.get('location').invalid"
                             class="form-text text-muted mb-4">Location is Required</small>
                     </div>
-                    <!--  [disabled]="registrationForm.invalid" -->
+                    <div class="custom-control custom-radio">
+                        <input type="radio" formControlName="gender" class="custom-control-input" value="Male" id="male"
+                            name="gender">
+                        <label class="custom-control-label" for="male">Male</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" formControlName="gender" class="custom-control-input" value="Female" id="female"
+                            name="gender">
+                        <label class="custom-control-label" for="female">Female</label>
+                    </div>
+                    <div class="md-form">
+                        <textarea type="text" formControlName="about" class="md-textarea form-control" rows="2"></textarea>
+                    </div>
                     <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0">Signup</button>
                     <p>Already have an account?
                         <a routerLink="/login">Signin</a>

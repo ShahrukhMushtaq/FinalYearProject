@@ -25,7 +25,9 @@ export class SignupComponent implements OnInit {
       'age': ['', Validators.compose([Validators.required, Validators.min(18)])],
       'location': ['', Validators.required],
       'phone': ['', Validators.compose([Validators.required, Validators.min(1000000000)])],
-      'avatar': ['', Validators.required],
+      'avatar': [' '],
+      'gender': ['', Validators.required],
+      'about': [' ']
     })
   }
 
@@ -62,17 +64,21 @@ export class SignupComponent implements OnInit {
 
   signup() {
     console.log(this.registrationForm.value)
-    this.auth.registerUser(this.registrationForm.value)
-      .subscribe(res => {
-        if (res['status'] == 200) {
-          this.snotifyService.success(res['messsage'], this.auth.getConfig())
-          this.router.navigate(['user'])
-        } else {
-          this.snotifyService.warning(res['messsage'], this.auth.getConfig())
-        }
-      }, err => {
-        this.snotifyService.error(err.error.message, this.auth.getConfig())
-      }
+    if (this.registrationForm.invalid) {
+      this.snotifyService.warning("Invalid Details", this.auth.getConfig())
+    }
+    else {
+      this.auth.registerUser(this.registrationForm.value)
+        .subscribe(res => {
+          if (res['status'] == 200) {
+            this.snotifyService.success(res['messsage'], this.auth.getConfig())
+            this.router.navigate(['user'])
+          } else {
+            this.snotifyService.warning(res['messsage'], this.auth.getConfig())
+          }
+        }, err => {
+          this.snotifyService.error(err.error.message, this.auth.getConfig())
+        })
+    }
   }
-
 }
