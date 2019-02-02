@@ -14,6 +14,8 @@ import { CloudinaryService } from './../../services/cloudinary.service';
 export class ProfileComponent implements OnInit {
   modalRef: BsModalRef;
   uploader;
+  checkedMale;
+  checkedFemale;
   userData = {
     firstName: '',
     lastName: '',
@@ -36,6 +38,13 @@ export class ProfileComponent implements OnInit {
         if (res['status'] == 200) {
           console.log(res)
           this.userData = res['content']
+          if (this.userData.gender == 'Male') {
+            this.checkedMale = true;
+            this.checkedFemale = false;
+          } else {
+            this.checkedMale = false;
+            this.checkedFemale = true;
+          }
           this.spinner.hide();
           // this.snotifyService.success(res['message'], this.auth.getConfig())
         } else {
@@ -49,7 +58,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getPicture() {
-    return this.userData.avatar !== '' ? this.userData.avatar : 'https://res.cloudinary.com/shahrukhmushtaq/image/upload/v1548766363/auction-users/boy.png';
+    return this.userData.avatar !== ' ' ? this.userData.avatar : 'https://res.cloudinary.com/shahrukhmushtaq/image/upload/v1548766363/auction-users/boy.png';
   }
 
   openModal(template: TemplateRef<any>) {
