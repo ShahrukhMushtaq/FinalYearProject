@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-const User = require('./user')
 const itemSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -24,7 +23,8 @@ const itemSchema = new mongoose.Schema({
     itemImage: [{ type: String }],
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     }
 })
 module.exports = mongoose.model("Auctions", itemSchema)
