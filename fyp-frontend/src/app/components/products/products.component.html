@@ -1,0 +1,53 @@
+<div class="card">
+  <h5 class="card-header info-color white-text text-center py-4">
+    <strong>Add Your Product</strong>
+  </h5>
+  <div class="card-body px-lg-5 pt-0">
+    <form [formGroup]="productForm" class="text-center" style="color: #757575;" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="col">
+          <div class="md-form">
+            <input type="text" class="form-control" placeholder="Title" formControlName="title">
+          </div>
+        </div>
+        <div class="col">
+          <div class="md-form">
+            <input type="text" class="form-control" placeholder="Category" formControlName="category">
+          </div>
+        </div>
+      </div>
+      <div class="md-form">
+        <input type="text" class="form-control" placeholder="Description" formControlName="description">
+      </div>
+      <div class="form-row">
+        <div class="col">
+          <div class="md-form">
+            <input type="number" class="form-control" placeholder="Price" formControlName="initialValue">
+          </div>
+        </div>
+        <div class="col">
+          <div class="md-form">
+            <select style="display:block !important" class="mdb-select" formControlName="status">
+              <option selected disabled>Availaibility</option>
+              <option [ngValue]="true">Now</option>
+              <option [ngValue]="false">Later</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="md-form">
+        <div class="file-field">
+          <div class="btn btn-primary btn-sm float-left">
+            <span>Choose file</span>
+            <input type="file" ng2FileSelect [uploader]="uploader" multiple>
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="Upload your file">
+          </div>
+          <div class="btn btn-primary btn-sm float-right"><a (click)="upload()">Upload</a></div>
+        </div>
+      </div>
+      <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Submit</button>
+    </form>
+  </div>
+</div>
