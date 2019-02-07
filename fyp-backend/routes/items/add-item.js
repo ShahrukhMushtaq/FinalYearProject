@@ -1,10 +1,21 @@
 const Joi = require('joi')
 const _ = require('lodash')
+const Item = require('../../models/items')
 
 module.exports = async (req, res) => {
     const { error } = validateItem(req.body)
     if (error) return res.status(400).send({ message: error.details[0].message, status: 400, content: '' })
-    res.status(200).send({ message: "OK", status: 200, content: '' })
+    const item = new Item({
+        title: req.body.title,
+        description: req.body.description,
+        category: req.body.category,
+        initialValue: req.body.initialValue,
+        status: req.body.status,
+        itemImage: req.body.itemImage,
+        user: req.body.user
+    })
+    await item.save();
+    res.status(200).send({ message: "Item added successfully", status: 200, content: item })
 }
 
 function validateItem(item) {

@@ -1,5 +1,11 @@
 const _ = require('lodash')
+const Item = require('../../models/items')
 
 module.exports = async (req, res) => {
-    res.status(200).send({ message: "OK", status: 200, content: '' })
+    await Item.find({ user: req.params.id }, (err, item) => {
+        if (err) {
+            return res.status(404).send({ message: "Not Found", status: 404, content: "Null" })
+        }
+        res.status(200).send({ message: "Successfully Get Items", status: 200, content: item })
+    })
 }

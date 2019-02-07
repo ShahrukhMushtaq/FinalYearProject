@@ -31,7 +31,7 @@ router.get('/my/profile', auth, profile)
 router.put('/my/update-profile/:id', auth, updateProfile)
 
 router.post('/add/item', auth, addItem)
-router.get('/get/item', auth, getItem)
+router.get('/get/item/:id', auth, getItem)
 router.put('/update/item', auth, updateItem)
 
 module.exports = router;
