@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit {
     this.auth.getUserProfile()
       .subscribe(res => {
         if (res['status'] == 200) {
-          console.log(res)
+          // console.log(res)
           this.userData = res['content']
           if (this.userData.gender == 'Male') {
             this.checkedMale = true;
@@ -55,6 +55,7 @@ export class ProfileComponent implements OnInit {
         this.spinner.hide();
         this.snotifyService.warning(err.error.message, this.auth.getConfig())
       })
+      // console.log(this.auth.CurrentUser)
   }
 
   getPicture() {

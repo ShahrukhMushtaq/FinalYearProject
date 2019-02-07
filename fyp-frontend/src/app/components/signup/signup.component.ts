@@ -14,6 +14,7 @@ export class SignupComponent implements OnInit {
 
   registrationForm: FormGroup;
   uploader;
+  uplod = false;
 
   constructor(private router: Router, private auth: AuthService, private cloud: CloudinaryService, private form: FormBuilder, private snotifyService: SnotifyService) {
     this.uploader = cloud.getConnected();
@@ -58,6 +59,7 @@ export class SignupComponent implements OnInit {
       let res: any = JSON.parse(response);
       console.log(res);
       this.registrationForm.value.avatar = res.secure_url;
+      this.uplod = true
       return { item, response, status, headers };
     };
   }

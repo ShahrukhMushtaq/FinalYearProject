@@ -45,7 +45,8 @@
                     </div>
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <button type="button" class="input-group-text" (click)="upload()" id="inputGroupFileAddon01">Upload</button>
+                            <button type="button" class="input-group-text" (click)="upload()" id="inputGroupFileAddon01">{{uplod?
+                                'Upload':'Uploaded'}}</button>
                         </div>
                         <div class="custom-file">
                             <input type="file" ng2FileSelect [uploader]="uploader" class="custom-file-input" id="inputGroupFile01"

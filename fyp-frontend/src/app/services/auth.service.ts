@@ -21,7 +21,7 @@ export class AuthService {
   dockMax = 8;
   blockMax = 6;
   pauseHover = true;
-  titleMaxLength = 30;
+  titleMaxLength = 100;
   bodyMaxLength = 80;
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private snotifyService: SnotifyService) { }
@@ -68,6 +68,12 @@ export class AuthService {
       closeOnClick: this.closeClick,
       pauseOnHover: this.pauseHover
     };
+  }
+
+  get CurrentUser() {
+    let token = localStorage.getItem('token');
+    if (!token) return null;
+    return new JwtHelperService().decodeToken(token)
   }
 
 }

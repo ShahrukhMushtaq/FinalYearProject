@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+  searchAuction = {
+    title: '',
+    category: '',
+    date: '',
+    minbid: '',
+    maxbid: ''
+  }
   constructor() { }
 
   ngOnInit() {
+  }
+
+  searchAuctions() {
+    console.log(this.searchAuction)
   }
 
 }

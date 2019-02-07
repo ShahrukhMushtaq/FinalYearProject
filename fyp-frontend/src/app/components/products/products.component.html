@@ -1,53 +1,121 @@
-<div class="card">
-  <h5 class="card-header info-color white-text text-center py-4">
-    <strong>Add Your Product</strong>
-  </h5>
-  <div class="card-body px-lg-5 pt-0">
-    <form [formGroup]="productForm" class="text-center" style="color: #757575;" (ngSubmit)="onSubmit()">
-      <div class="form-row">
-        <div class="col">
-          <div class="md-form">
-            <input type="text" class="form-control" placeholder="Title" formControlName="title">
-          </div>
+<section class="text-center my-5">
+  <h2 class="h1-responsive font-weight-bold text-center my-5">Your Products</h2>
+  <p class="grey-text text-center w-responsive mx-auto mb-5">Lorem ipsum dolor sit amet, consectetur
+    adipisicing elit. Fugit, error amet numquam iure provident voluptate esse quasi, veritatis totam voluptas
+    nostrum quisquam eum porro a pariatur veniam.</p>
+
+  <div class="row">
+
+    <div class="col-lg-3 col-md-5 mb-lg-0 mb-4" *ngFor="let item of products">
+      <div class="card card-cascade wider card-ecommerce" style="margin:10px">
+        <div class="view view-cascade overlay">
+          <img src={{item.itemImage[0]}} class="card-img-top" alt="sample photo" height="200px">
+          <a>
+            <div class="mask rgba-white-slight"></div>
+          </a>
         </div>
-        <div class="col">
-          <div class="md-form">
-            <input type="text" class="form-control" placeholder="Category" formControlName="category">
+        <div class="card-body card-body-cascade text-center">
+          <a href="" class="text-muted">
+            <h5>{{item.category}}</h5>
+          </a>
+          <h4 class="card-title">
+            <strong>
+              <a href="">{{item.title}}</a>
+            </strong>
+          </h4>
+          <!-- <p class="card-text">{{item.description}}</p> -->
+          <div class="card-footer px-1">
+            <span class="float-left font-weight-bold">
+              <strong>{{item.initialValue}}$</strong>
+            </span>
+            <span class="float-right">
+              <a class="" data-toggle="tooltip" data-placement="top" title="Quick Look" (click)="openModal(viewPro,item)">
+                <i class="fa fa-eye grey-text ml-3"></i>
+              </a>
+              <a class="" data-toggle="tooltip" data-placement="top" title="Add to Wishlist">
+                <i class="fa fa-heart grey-text ml-3"></i>
+              </a>
+              <a class="" data-toggle="tooltip" data-placement="top" title="Update Product" (click)="openModal(updatePro,item)">
+                <i class="fa fa-pencil-square-o grey-text ml-3"></i>
+              </a>
+            </span>
           </div>
-        </div>
-      </div>
-      <div class="md-form">
-        <input type="text" class="form-control" placeholder="Description" formControlName="description">
-      </div>
-      <div class="form-row">
-        <div class="col">
-          <div class="md-form">
-            <input type="number" class="form-control" placeholder="Price" formControlName="initialValue">
-          </div>
-        </div>
-        <div class="col">
-          <div class="md-form">
-            <select style="display:block !important" class="mdb-select" formControlName="status">
-              <option selected disabled>Availaibility</option>
-              <option [ngValue]="true">Now</option>
-              <option [ngValue]="false">Later</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="md-form">
-        <div class="file-field">
-          <div class="btn btn-primary btn-sm float-left">
-            <span>Choose file</span>
-            <input type="file" ng2FileSelect [uploader]="uploader" multiple>
-          </div>
-          <div class="file-path-wrapper">
-            <input class="file-path validate" type="text" placeholder="Upload your file">
-          </div>
-          <div class="btn btn-primary btn-sm float-right"><a (click)="upload()">Upload</a></div>
         </div>
       </div>
-      <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Submit</button>
-    </form>
+    </div>
+
   </div>
-</div>
+</section>
+
+<ng-template #updatePro>
+  <div class="modal-header">
+    <h4 class="modal-title">Update Your Product</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <div class="form-group">
+
+      <div class="form-row">
+        <div class="col">
+          <div class="md-form">
+            <input type="text" [(ngModel)]="item.title" class="form-control" placeholder="Title">
+          </div>
+        </div>
+        <div class="col">
+          <div class="md-form">
+            <input type="text" [(ngModel)]="item.category" class="form-control" placeholder="Category">
+          </div>
+        </div>
+      </div>
+      <div class="md-form">
+        <input type="text" [(ngModel)]="item.description" class="form-control" placeholder="Description">
+      </div>
+
+      <div class="form-row">
+        <div class="col-8" style="padding-top: 19px;">
+          <div class="custom-control custom-radio">
+            <span>Availability</span>
+            <input type="radio" class="custom-control-input" [(ngModel)]="item.status" value="true" id="now" name="status"
+              [checked]="checkNow">
+            <label class="custom-control-label" for="now">Now</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" [(ngModel)]="item.status" value="false" id="later" name="status"
+              [checked]="checkLater">
+            <label class="custom-control-label" for="later">Later</label>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="md-form">
+            <input type="number" [(ngModel)]="item.initialValue" class="form-control" placeholder="Price">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <button type="button" class="input-group-text" (click)="upload()" [disabled]="uploader.queue.length === 0">{{uplod?
+          'Uploaded':'Upload'}}</button>
+      </div>
+      <div class="custom-file">
+        <input type="file" ng2FileSelect [uploader]="uploader" class="custom-file-input" multiple>
+        <label class="custom-file-label">Choose file</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <button type="button" class="btn btn-primary" (click)="updateProduct()">Update Me</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #viewPro>
+  <div class="modal-header">
+    <h4 class="modal-title">Product Details</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</ng-template>

@@ -11,6 +11,7 @@ import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ModalModule } from "ngx-bootstrap";
+import { BsDatepickerModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
@@ -22,6 +23,8 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
 import { ProfileComponent } from './components/profile/profile.component';
 import { CreateAuctionComponent } from './components/create-auction/create-auction.component';
 import { UserPageComponent } from './components/user-page/user-page.component';
+import { ProductsComponent } from './components/products/products.component';
+import { AddProductComponent } from './components/add-product/add-product.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -35,6 +38,8 @@ const routes: Routes = [
       { path: '', redirectTo: 'profile', pathMatch: 'full' },
       { path: 'profile', component: ProfileComponent },
       { path: 'create-auction', component: CreateAuctionComponent },
+      { path: 'items', component: ProductsComponent },
+      { path: 'add-items', component: AddProductComponent },
     ]
   },
   { path: '**', redirectTo: '' }
@@ -55,7 +60,9 @@ function getToken() {
     ContactUsComponent,
     ProfileComponent,
     CreateAuctionComponent,
-    UserPageComponent
+    UserPageComponent,
+    ProductsComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +79,8 @@ function getToken() {
     SnotifyModule,
     FileUploadModule,
     NgxSpinnerModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
