@@ -14,8 +14,8 @@ var usersRouter = require('./routes/users');
 var modules = require('./routes/modules');
 
 var app = express();
-// mongoose.connect('mongodb://localhost:27017/auction', { useNewUrlParser: true, useCreateIndex: true });
-mongoose.connect('mongodb://shahrukh:shahrukh0auction@ds213705.mlab.com:13705/auction-base', { useNewUrlParser: true, useCreateIndex: true });
+// mongoose.connect('mongodb://localhost:27017/auction', { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false });
+mongoose.connect('mongodb://shahrukh:shahrukh0auction@ds213705.mlab.com:13705/auction-base', { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false });
 mongoose.connection.on('connected', () => {
   console.log('Connected to M-LAB database');
 });
@@ -30,7 +30,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(helmet());
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header("Access-Control-Allow-Headers", "Origin, x-access-token, Content-Type, Accept");
