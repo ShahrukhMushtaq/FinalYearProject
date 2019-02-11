@@ -21,13 +21,14 @@ export class AuthService {
   dockMax = 8;
   blockMax = 6;
   pauseHover = true;
-  titleMaxLength = 100;
-  bodyMaxLength = 80;
+  titleMaxLength = 1000;
+  bodyMaxLength = 1000;
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private snotifyService: SnotifyService) { }
 
   login(data) {
-    return this.http.post("http://localhost:3000/api/login", data)
+    return this.http.post("https://auctions-app.herokuapp.com/api/login", data)
+    // return this.http.post("http://localhost:3000/api/login", data)
   }
 
   isAuthenticated(): boolean {
@@ -39,15 +40,18 @@ export class AuthService {
   }
 
   registerUser(data) {
-    return this.http.post("http://localhost:3000/api/register", data)
+    return this.http.post("https://auctions-app.herokuapp.com/api/register", data)
+    // return this.http.post("http://localhost:3000/api/register", data)
   }
 
   getUserProfile() {
-    return this.http.get("http://localhost:3000/api/my/profile")
+    return this.http.get("https://auctions-app.herokuapp.com/api/my/profile")
+    // return this.http.get("http://localhost:3000/api/my/profile")
   }
 
-  updateUserProfile(data) { 
-    return this.http.put(`http://localhost:3000/api/my/update-profile/${data._id}` , data)
+  updateUserProfile(data) {
+    return this.http.put(`https://auctions-app.herokuapp.com/api/my/update-profile/${data._id}`, data)
+    // return this.http.put(`http://localhost:3000/api/my/update-profile/${data._id}` , data)
   }
 
   getConfig(): SnotifyToastConfig {
