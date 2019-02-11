@@ -56,8 +56,17 @@ export class AddProductComponent implements OnInit {
       this.auction.addItem(this.productForm.value)
         .subscribe(res => {
           if (res['status'] == 200) {
+            this.productForm.setValue({
+              title: '',
+              description: '',
+              category: '',
+              status: 'false',
+              initialValue: '',
+              itemImage: [''],
+              user: this.auth.CurrentUser._id
+            })
             this.spinner.hide();
-            this.snotifyService.success(res['messsage'], this.auth.getConfig())
+            this.snotifyService.success('Success', this.auth.getConfig())
           } else {
             this.spinner.hide();
             this.snotifyService.warning(res['messsage'], this.auth.getConfig())

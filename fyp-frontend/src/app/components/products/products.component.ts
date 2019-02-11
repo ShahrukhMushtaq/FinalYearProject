@@ -29,7 +29,8 @@ export class ProductsComponent implements OnInit {
     initialValue: '',
     status: '',
     itemImage: [],
-    user: ''
+    user: '',
+    _id: ''
   }
   modalRef: BsModalRef;
   constructor(private cloud: CloudinaryService, private form: FormBuilder, private router: Router, private auth: AuthService, private snotifyService: SnotifyService, private auction: AuctionService, private spinner: NgxSpinnerService, private modalService: BsModalService) {
@@ -57,6 +58,7 @@ export class ProductsComponent implements OnInit {
 
   upload() {
     console.log(this.uploader)
+    this.item.itemImage = [];
     this.uploader.uploadAll();
     this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
       let res: any = JSON.parse(response);
@@ -68,6 +70,7 @@ export class ProductsComponent implements OnInit {
   }
 
   updateProduct() {
+    console.log(this.item)
     this.spinner.show();
     if (!this.item) {
       this.spinner.hide();
@@ -77,17 +80,15 @@ export class ProductsComponent implements OnInit {
       this.auction.updateItem(this.item)
         .subscribe(res => {
           if (res['status'] == 200) {
-
             this.modalRef.hide()
             this.auction.getItem(this.auth.CurrentUser._id)
               .subscribe(res => {
-                console.log(res)
                 this.products = res['content']
               }, err => {
-                console.log(err)
+                this.snotifyService.error(err.error.message, this.auth.getConfig())
               })
             this.spinner.hide();
-            this.snotifyService.success(res['messsage'], this.auth.getConfig())
+            this.snotifyService.success('Success', this.auth.getConfig())
           } else {
             this.spinner.hide();
             this.snotifyService.warning(res['messsage'], this.auth.getConfig())
@@ -100,6 +101,7 @@ export class ProductsComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>, item) {
+    this.uplod = false
     this.item = {
       title: item.title,
       category: item.category,
@@ -107,7 +109,8 @@ export class ProductsComponent implements OnInit {
       initialValue: item.initialValue,
       status: item.status,
       itemImage: item.itemImage,
-      user: item.user
+      user: item.user,
+      _id: item._id
     }
     if (item.status == 'true') {
       this.checkNow = true;
