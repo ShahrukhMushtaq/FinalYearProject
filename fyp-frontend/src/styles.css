@@ -1,2 +1,23 @@
 @import "~ng-snotify/styles/material.css";
 html, body {margin: 0; height: 100%; overflow-x: hidden}
+
+select.my-select{
+    display: block !important;
+    border: none;
+    border-bottom: 1px solid #BDBDBD;
+    margin-top: 20px;
+    color: #495057;
+    width: inherit;
+}
+select.my-select:focus{
+    border-bottom: 2px solid #4285F4;
+    outline-color: white;
+    outline-style: none;
+}
+select.my-select>option:disabled{
+    color: #BDBDBD
+}
+
+select.my-select>option{
+    color: rgb(112, 122, 224)
+}
