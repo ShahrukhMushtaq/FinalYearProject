@@ -11,7 +11,7 @@ import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ModalModule } from "ngx-bootstrap";
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
@@ -80,7 +80,8 @@ function getToken() {
     FileUploadModule,
     NgxSpinnerModule,
     ModalModule.forRoot(),
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    TimepickerModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
