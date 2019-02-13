@@ -74,23 +74,17 @@
       </div>
 
       <div class="form-row">
-        <div class="col-8" style="padding-top: 19px;">
-          <div class="custom-control custom-radio">
-            <span>Availability</span>
-            <input type="radio" class="custom-control-input" [(ngModel)]="item.status" value="true" id="now" name="status"
-              [checked]="checkNow">
-            <label class="custom-control-label" for="now">Now</label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" [(ngModel)]="item.status" value="false" id="later" name="status"
-              [checked]="checkLater">
-            <label class="custom-control-label" for="later">Later</label>
-          </div>
-        </div>
-        <div class="col-3">
+        <div class="col">
           <div class="md-form">
             <input type="number" [(ngModel)]="item.initialValue" class="form-control" placeholder="Price">
           </div>
+        </div>
+        <div class="col">
+          <select class="my-select p-2" [(ngModel)]="item.status">
+            <option disabled value="">Availability</option>
+            <option value="true">Now</option>
+            <option value="false">Later</option>
+          </select>
         </div>
       </div>
     </div>
