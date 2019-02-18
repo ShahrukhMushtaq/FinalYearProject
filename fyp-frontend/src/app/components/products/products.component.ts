@@ -53,6 +53,7 @@ export class ProductsComponent implements OnInit {
         this.products = res['content']
       }, err => {
         console.log(err)
+        this.snotifyService.error(err.error.message, this.auth.getConfig())
       })
   }
 
