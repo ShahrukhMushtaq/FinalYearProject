@@ -23,7 +23,7 @@ const itemSchema = new mongoose.Schema({
     itemImage: [{ type: String }],
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Users',
         required: true
     }
 })

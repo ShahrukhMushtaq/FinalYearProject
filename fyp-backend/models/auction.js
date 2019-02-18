@@ -2,12 +2,12 @@ var mongoose = require('mongoose');
 const auctionSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Users',
         required: true
     },
     item: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Item',
+        ref: 'Items',
         required: true
     },
     endTime: {

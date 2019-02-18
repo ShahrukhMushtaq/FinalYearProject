@@ -51,4 +51,4 @@ user.methods.generateAuthToken = function () {
     return token;
 }
 
-module.exports = mongoose.model('users', user); 
+module.exports = mongoose.model('Users', user); 
