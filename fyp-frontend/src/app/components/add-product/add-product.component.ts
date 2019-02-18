@@ -23,7 +23,7 @@ export class AddProductComponent implements OnInit {
       'title': ['', Validators.required],
       'category': ['', Validators.required],
       'description': ['', Validators.required],
-      'initialValue': ['', Validators.required],
+      'initialValue': ['', Validators.compose([Validators.min(1), Validators.required])],
       'status': ["false", Validators.required],
       'itemImage': [[''], Validators.required],
       'user': [this.auth.CurrentUser._id, Validators.required]
