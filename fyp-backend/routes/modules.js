@@ -8,6 +8,9 @@ var auth = require('../middleware/auth')
 var addItem = require('./items/add-item')
 var getItem = require('./items/get-item')
 var updateItem = require('./items/update-item')
+var createAuction = require('./auction/create-auction')
+var getAuction = require('./auction/get-auction')
+var getAllAuction = require('./auction/get-auction-all')
 
 const multer = require('multer');
 const storage = multer.diskStorage({
@@ -33,5 +36,9 @@ router.put('/my/update-profile/:id', auth, updateProfile)
 router.post('/add/item', auth, addItem)
 router.get('/get/item/:id', auth, getItem)
 router.put('/update/item/:id', auth, updateItem)
+
+router.post('/create/auction', auth, createAuction)
+router.get('/get/auction/:id', auth, getAuction)
+router.get('/get/auction', auth, getAllAuction)
 
 module.exports = router;

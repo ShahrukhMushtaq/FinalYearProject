@@ -27,4 +27,4 @@ const itemSchema = new mongoose.Schema({
         required: true
     }
 })
-module.exports = mongoose.model("Auctions", itemSchema)
+module.exports = mongoose.model("Items", itemSchema)
