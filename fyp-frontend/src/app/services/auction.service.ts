@@ -22,4 +22,19 @@ export class AuctionService {
     return this.http.put(`https://auctions-app.herokuapp.com/api/update/item/${data._id}`, data)
     // return this.http.put(`http://localhost:3000/api/update/item/${data._id}`, data)
   }
+
+  createAuction(data) {
+    // return this.http.post('http://localhost:3000/api/create/auction', data)
+    return this.http.post('https://auctions-app.herokuapp.com/api/create/auction', data)
+  }
+
+  getAuction(id) {
+    // return this.http.get(`http://localhost:3000/api/get/auction/${id}`)
+    return this.http.get(`https://auctions-app.herokuapp.com/api/get/auction/${id}`)
+  }
+
+  getAllAuction() {
+    // return this.http.get('http://localhost:3000/api/get/auction')
+    return this.http.get('https://auctions-app.herokuapp.com/api/get/auction')
+  }
 }
