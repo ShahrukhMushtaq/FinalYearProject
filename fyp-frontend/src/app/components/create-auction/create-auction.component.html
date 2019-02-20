@@ -17,18 +17,18 @@
       </a>
     </div>
   </div>
-  <form class="col-xs-3 col-sm-4 col-md-5 col-lg-5 col-xl-5" (ngSubmit)="onSubmit()">
+  <form [formGroup]="auctionForm" class="col-xs-3 col-sm-4 col-md-5 col-lg-5 col-xl-5" (ngSubmit)="onSubmit()">
     <div class="md-form">
-      <input type="text" placeholder="End Date" class="form-control" bsDatepicker>
+      <input type="text" formControlName="endDate" placeholder="End Date" class="form-control" bsDatepicker>
     </div>
     <div class="md-form">
-      <timepicker></timepicker>
+      <timepicker formControlName="endTime"></timepicker>
     </div>
     <div class="md-form">
-      <input type="number" placeholder="Starting Bid" class="form-control">
+      <input type="number" placeholder="Starting Bid" class="form-control" formControlName="startingBid">
     </div>
     <div class="md-form">
-      <input type="submit" value="Create Auction" class="btn btn-default">
+      <input type="submit" value="Create Auction" class="btn btn-default" [disabled]="auctionForm.invalid">
     </div>
   </form>
 </div>

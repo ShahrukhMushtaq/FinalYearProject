@@ -22,7 +22,16 @@ export class CreateAuctionComponent implements OnInit {
   showAuction = false;
   modalRef: BsModalRef;
   modalImage: any;
-  constructor(private cloud: CloudinaryService, private form: FormBuilder, private router: Router, private auth: AuthService, private snotifyService: SnotifyService, private auction: AuctionService, private spinner: NgxSpinnerService, private modalService: BsModalService) { }
+  auctionForm: FormGroup;
+  constructor(private cloud: CloudinaryService, private form: FormBuilder, private router: Router, private auth: AuthService, private snotifyService: SnotifyService, private auction: AuctionService, private spinner: NgxSpinnerService, private modalService: BsModalService) {
+    this.auctionForm = this.form.group({
+      'endDate': ['', Validators.required],
+      'endTime': ['', Validators.required],
+      'startingBid': ['', Validators.compose([Validators.min(1), Validators.required])],
+      'user': [this.auth.CurrentUser._id, Validators.required],
+      'item': ['']
+    })
+  }
 
   ngOnInit() {
     this.auction.getItem(this.auth.CurrentUser._id)
@@ -40,7 +49,7 @@ export class CreateAuctionComponent implements OnInit {
         }
       }, err => {
         console.log(err)
-        this.snotifyService.error(err.error.message, this.auth.getConfig())
+        this.snotifyService.error("Internet Problem", this.auth.getConfig())
       })
   }
 
@@ -53,7 +62,46 @@ export class CreateAuctionComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("Called")
+    this.auctionForm.value.endDate = this.auctionForm.value.endDate.getTime();
+    this.auctionForm.value.endTime = this.auctionForm.value.endTime.getTime();
+    this.auctionForm.value.item = this.selectedProduct._id;
+    if (this.auctionForm.invalid) {
+      this.snotifyService.warning("Invalid Details", this.auth.getConfig())
+    }
+    else {
+      console.log(this.auctionForm.value)
+      this.auction.createAuction(this.auctionForm.value)
+        .subscribe(data => {
+          if (data['status'] == 201) {
+            this.showAuction = false;
+            this.snotifyService.warning('Auction Already Exist', this.auth.getConfig())
+            this.selectedProduct = [];
+            this.products = [];
+            this.ngOnInit()
+          }
+          else if (data['status'] == 200) {
+            console.log(data['content'])
+            this.showAuction = false;
+            this.snotifyService.success(data['message'], this.auth.getConfig())
+            this.selectedProduct = [];
+            this.products = [];
+            this.ngOnInit()
+          }
+          else {
+            this.showAuction = false;
+            this.snotifyService.warning(data['message'], this.auth.getConfig())
+            this.selectedProduct = [];
+            this.products = [];
+            this.ngOnInit()
+          }
+        }, err => {
+          this.showAuction = false;
+          this.snotifyService.error("Internet Problem", this.auth.getConfig())
+          this.selectedProduct = [];
+          this.products = [];
+          this.ngOnInit()
+        })
+    }
   }
   openModal(template: TemplateRef<any>, i) {
     this.modalImage = i;
