@@ -25,6 +25,7 @@ import { CreateAuctionComponent } from './components/create-auction/create-aucti
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { ProductsComponent } from './components/products/products.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
+import { ActiveAuctionComponent } from './components/active-auction/active-auction.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -38,6 +39,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'profile', pathMatch: 'full' },
       { path: 'profile', component: ProfileComponent },
       { path: 'create-auction', component: CreateAuctionComponent },
+      { path: 'active-auction', component: ActiveAuctionComponent },
       { path: 'items', component: ProductsComponent },
       { path: 'add-items', component: AddProductComponent },
     ]
@@ -62,7 +64,8 @@ function getToken() {
     CreateAuctionComponent,
     UserPageComponent,
     ProductsComponent,
-    AddProductComponent
+    AddProductComponent,
+    ActiveAuctionComponent
   ],
   imports: [
     BrowserModule,
