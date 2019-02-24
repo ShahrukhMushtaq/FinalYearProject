@@ -27,6 +27,8 @@ import { ProductsComponent } from './components/products/products.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { ActiveAuctionComponent } from './components/active-auction/active-auction.component';
 
+import { ImagePreview } from './directives/image-preview.directive'
+
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
@@ -65,7 +67,8 @@ function getToken() {
     UserPageComponent,
     ProductsComponent,
     AddProductComponent,
-    ActiveAuctionComponent
+    ActiveAuctionComponent,
+    ImagePreview
   ],
   imports: [
     BrowserModule,
