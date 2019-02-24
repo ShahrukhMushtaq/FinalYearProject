@@ -39,6 +39,6 @@ router.put('/update/item/:id', auth, updateItem)
 
 router.post('/create/auction', auth, createAuction)
 router.get('/get/auction/:id', auth, getAuction)
-router.get('/get/auction', auth, getAllAuction)
+router.get('/get/auction', getAllAuction)
 
 module.exports = router;
