@@ -33,6 +33,8 @@ export class ProductsComponent implements OnInit {
     _id: ''
   }
   modalRef: BsModalRef;
+  modalProduct = {};
+  showModal = false;
   constructor(private cloud: CloudinaryService, private form: FormBuilder, private router: Router, private auth: AuthService, private snotifyService: SnotifyService, private auction: AuctionService, private spinner: NgxSpinnerService, private modalService: BsModalService) {
     this.uploader = cloud.getConnected();
     this.productForm = this.form.group({
@@ -122,6 +124,12 @@ export class ProductsComponent implements OnInit {
       this.checkNow = false;
     }
     this.modalRef = this.modalService.show(template)
+  }
+
+  modalData(item) {
+    this.modalProduct = item;
+    this.showModal = true;
+    console.log(this.modalProduct)
   }
 
 }
