@@ -1,8 +1,8 @@
 <header>
     <nav class="mb-1 navbar navbar-expand-lg navbar-dark default-color">
         <a class="navbar-brand" href="#">
-            <img src="https://mdbootstrap.com/img/logo/mdb-transparent.png" height="30" class="d-inline-block align-top"
-                alt="mdb logo"> Auction
+            <img src="https://res.cloudinary.com/shahrukhmushtaq/image/upload/v1549451912/auction-users/pinterest_board_photo.png"
+                height="50" width="67px" class="d-inline-block align-top" alt="mdb logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
             aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,18 +11,22 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" routerLink=""><i class="fa fa-home"></i> <span class="clearfix d-none d-sm-inline-block">Home</span>
+                    <a class="nav-link" routerLink=""><i class="fa fa-home"></i> <span
+                            class="clearfix d-none d-sm-inline-block">Home</span>
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item" *ngIf="auth.isAuthenticated()">
-                    <a class="nav-link" routerLink="user"><i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block">Account</span></a>
+                    <a class="nav-link" routerLink="user"><i class="fa fa-user"></i> <span
+                            class="clearfix d-none d-sm-inline-block">Account</span></a>
                 </li>
                 <li class="nav-item" *ngIf="!auth.isAuthenticated()">
-                    <a class="nav-link" routerLink="login"><i class="fa fa-sign-in"></i> <span class="clearfix d-none d-sm-inline-block">SignIn</span></a>
+                    <a class="nav-link" routerLink="login"><i class="fa fa-sign-in"></i> <span
+                            class="clearfix d-none d-sm-inline-block">SignIn</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="contact-us"><i class="fa fa-envelope"></i> <span class="clearfix d-none d-sm-inline-block">Contact</span></a>
+                    <a class="nav-link" routerLink="contact-us"><i class="fa fa-envelope"></i> <span
+                            class="clearfix d-none d-sm-inline-block">Contact</span></a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto nav-flex-icons" *ngIf="auth.isAuthenticated()">
