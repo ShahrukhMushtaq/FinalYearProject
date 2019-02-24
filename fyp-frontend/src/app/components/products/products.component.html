@@ -60,22 +60,20 @@
           </div>
         </div>
         <div class="col">
-          <div class="col">
-            <select class="my-select p-2" [(ngModel)]="item.category">
-              <option disabled value="">Choose Category</option>
-              <option value="Mobile & Accessories">Mobile & Accessories</option>
-              <option value="Laptop & Computer">Laptop & Computer</option>
-              <option value="Clothes">Clothes</option>
-              <option value="Electronics & Home Appliances">Electronics & Home Appliances</option>
-              <option value="Property">Property</option>
-              <option value="Bikes">Bikes</option>
-              <option value="Furniture And Home Decor">Furniture And Home Decor</option>
-              <option value="Sports">Sports</option>
-              <option value="Educational">Educational</option>
-              <option value="Fashion & Beauty">Fashion & Beauty</option>
-              <option value="Kids Garments">Kids Garments</option>
-            </select>
-          </div>
+          <select class="my-select p-2" [(ngModel)]="item.category">
+            <option disabled value="">Choose Category</option>
+            <option value="Mobile & Accessories">Mobile & Accessories</option>
+            <option value="Laptop & Computer">Laptop & Computer</option>
+            <option value="Clothes">Clothes</option>
+            <option value="Electronics & Home Appliances">Electronics & Home Appliances</option>
+            <option value="Property">Property</option>
+            <option value="Bikes">Bikes</option>
+            <option value="Furniture And Home Decor">Furniture And Home Decor</option>
+            <option value="Sports">Sports</option>
+            <option value="Educational">Educational</option>
+            <option value="Fashion & Beauty">Fashion & Beauty</option>
+            <option value="Kids Garments">Kids Garments</option>
+          </select>
         </div>
       </div>
       <div class="md-form">
@@ -96,29 +94,37 @@
           </select>
         </div>
       </div>
-    </div>
-
-    <!-- <div class="input-group">
-      <div class="input-group-prepend">
-        <button type="button" class="input-group-text" (click)="upload()" [disabled]="uploader.queue.length === 0">{{uplod?
-          'Uploaded':'Upload'}}</button>
-      </div>
-      <div class="custom-file">
-        <input type="file" ng2FileSelect [uploader]="uploader" class="custom-file-input" multiple>
-        <label class="custom-file-label">Choose file</label>
-      </div>
-    </div>
-    -->
-    <div class="form-row">
-      <div class="col">
-        <div class="md-form">
-          <span style="float:left;" *ngFor="let pic of item.itemImage">
-            <img width="80px" height="50px" src={{pic}} alt="" style="padding-left: 5px">
-            <i class="fa fa-times"></i>
+      <div class="form-row">
+        <div class="col">
+          <span style="float:left;" *ngFor="let pic of item.itemImage let i = index">
+            <img width="130px" height="80px" src={{pic}} alt="" style="margin-bottom: 7px;margin-left: 7px;">
+            <i style="cursor:pointer; font-size: 20px; position: absolute; margin-left: -15px; margin-top: -3px;"
+              class="fa fa-times" (click)="removePic(i)"></i>
+          </span>
+        </div>
+        <div class="col" *ngIf="uploader.queue.length">
+          <span *ngFor="let item of uploader.queue let j = index">
+            <img src="" imgPreview [image]="item?._file" width="130px" height="80px" style="margin-bottom: 7px;" />
+            <i style="cursor:pointer; font-size: 20px; position: absolute; margin-left: -15px; margin-top: -3px;"
+              class="fa fa-times" (click)="removePicFromUploader(j)"></i>
           </span>
         </div>
       </div>
+      <div class="form-row">
+        <div class="col-6">
+          <span>
+            <input type="file" (change)="addFiles()" ng2FileSelect [uploader]="uploader" multiple>
+          </span>
+        </div>
+        <div class="col-6" *ngIf="uploader.queue.length">
+          <button class="btn-floating blue-gradient" [hidden]="uplod" (click)="upload()"><i
+              class="fa fa-upload"></i></button>
+          <button class="btn-floating blue-gradient" *ngIf="uplod"><i class="fa fa-check"></i></button>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="modal-footer">
     <div class="form-group">
       <button type="button" class="btn btn-primary" (click)="updateProduct()">Update Me</button>
     </div>
@@ -155,13 +161,13 @@
                 </a>
                 <ol class="carousel-indicators">
                   <li *ngIf="modalProduct.itemImage[0]" data-target="#carousel-thumb" data-slide-to="0" class="active">
-                    <img class="d-block" src={{modalProduct.itemImage[0]}} class="img-fluid"></li>
+                    <img class="d-block img-fluid" src={{modalProduct.itemImage[0]}}></li>
                   <li *ngIf="modalProduct.itemImage[1]" data-target="#carousel-thumb" data-slide-to="0" class="active">
-                    <img class="d-block" src={{modalProduct.itemImage[1]}} class="img-fluid"></li>
+                    <img class="d-block img-fluid" src={{modalProduct.itemImage[1]}}></li>
                   <li *ngIf="modalProduct.itemImage[2]" data-target="#carousel-thumb" data-slide-to="0" class="active">
-                    <img class="d-block" src={{modalProduct.itemImage[2]}} class="img-fluid"></li>
+                    <img class="d-block img-fluid" src={{modalProduct.itemImage[2]}}></li>
                   <li *ngIf="modalProduct.itemImage[3]" data-target="#carousel-thumb" data-slide-to="0" class="active">
-                    <img class="d-block" src={{modalProduct.itemImage[3]}} class="img-fluid"></li>
+                    <img class="d-block img-fluid" src={{modalProduct.itemImage[3]}}></li>
                 </ol>
               </div>
             </div>

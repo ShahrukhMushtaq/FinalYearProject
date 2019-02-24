@@ -8,6 +8,7 @@ import { AuctionService } from '../../services/auction.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import * as _ from 'lodash'
 
 @Component({
   selector: 'app-products',
@@ -61,7 +62,6 @@ export class ProductsComponent implements OnInit {
 
   upload() {
     console.log(this.uploader)
-    this.item.itemImage = [];
     this.uploader.uploadAll();
     this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
       let res: any = JSON.parse(response);
@@ -104,8 +104,9 @@ export class ProductsComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>, item) {
+    this.uploader.clearQueue();
     this.uplod = false
-    this.item = {
+    this.item = _.cloneDeep({
       title: item.title,
       category: item.category,
       description: item.description,
@@ -114,7 +115,7 @@ export class ProductsComponent implements OnInit {
       itemImage: item.itemImage,
       user: item.user,
       _id: item._id
-    }
+    })
     if (item.status == 'true') {
       this.checkNow = true;
       this.checkLater = false;
@@ -129,7 +130,17 @@ export class ProductsComponent implements OnInit {
   modalData(item) {
     this.modalProduct = item;
     this.showModal = true;
-    console.log(this.modalProduct)
   }
 
+  removePic(i) {
+    this.item.itemImage.splice(i, 1)
+  }
+
+  addFiles() {
+    console.log(this.uploader)
+  }
+
+  removePicFromUploader(i) {
+    this.uploader.queue.splice(i, 1)
+  }
 }
