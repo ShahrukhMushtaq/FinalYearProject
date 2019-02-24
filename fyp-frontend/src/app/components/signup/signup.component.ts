@@ -26,9 +26,9 @@ export class SignupComponent implements OnInit {
       'age': ['', Validators.compose([Validators.required, Validators.min(18)])],
       'location': ['', Validators.required],
       'phone': ['', Validators.compose([Validators.required, Validators.min(1000000000)])],
-      'avatar': [' '],
+      'avatar': [''],
       'gender': ['', Validators.required],
-      'about': [' ']
+      'about': ['Bio']
     })
   }
 
@@ -58,6 +58,7 @@ export class SignupComponent implements OnInit {
     this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
       let res: any = JSON.parse(response);
       console.log(res);
+      this.registrationForm.value.avatar = "";
       this.registrationForm.value.avatar = res.secure_url;
       this.uplod = true
       return { item, response, status, headers };
