@@ -13,9 +13,20 @@
               </div>
             </div>
             <div class="col">
-              <div class="md-form">
-                <input type="text" class="form-control" placeholder="Category" formControlName="category">
-              </div>
+              <select class="my-select p-2" formControlName="category">
+                <option disabled value="">Choose Category</option>
+                <option value="Mobile & Accessories">Mobile & Accessories</option>
+                <option value="Laptop & Computer">Laptop & Computer</option>
+                <option value="Clothes">Clothes</option>
+                <option value="Electronics & Home Appliances">Electronics & Home Appliances</option>
+                <option value="Property">Property</option>
+                <option value="Bikes">Bikes</option>
+                <option value="Furniture And Home Decor">Furniture And Home Decor</option>
+                <option value="Sports">Sports</option>
+                <option value="Educational">Educational</option>
+                <option value="Fashion & Beauty">Fashion & Beauty</option>
+                <option value="Kids Garments">Kids Garments</option>
+              </select>
             </div>
           </div>
           <div class="md-form">
@@ -35,19 +46,30 @@
               </select>
             </div>
           </div>
-          <div class="md-form">
-            <div class="file-field">
-              <div class="btn btn-primary btn-sm float-left">
-                <span>Choose file</span>
-                <input type="file" ng2FileSelect [uploader]="uploader" (click)="uploader.clearQueue()" multiple>
+          <div class="form-row">
+            <div class="col">
+              <div class="md-form">
+                <span>
+                  <label class="badge badge-primary">Choose Images</label>
+                  <input type="file" class="custom-file-input" (change)="selectFiles()" ng2FileSelect
+                    [uploader]="uploader" multiple>
+                </span>
+                <ol *ngIf="uploader.queue.length > 0">
+                  <li *ngFor="let item of uploader.queue">{{item._file.name}}
+                    <span class="fa fa-times" style="float:right; font-size:20px; cursor: pointer; color: #d9534f"
+                      (click)="item.remove()" [hidden]="item.isUploaded"></span>
+                    <span class="fa fa-check" style="float:right; font-size:20px; color: #5cb85c"
+                      *ngIf="item.isUploaded"></span>
+                  </li>
+                  <button type="button" class="btn btn-success btn-sm" (click)="upload()" [disabled]="uplod"><i
+                      class="fa fa-upload">Upload
+                      All</i></button>
+                </ol>
               </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text" placeholder="Upload your file">
-              </div>
-              <a class="btn btn-primary btn-sm float-right" (click)="upload()">{{ uplod ? 'Uploaded':'Upload'}}</a>
             </div>
           </div>
-          <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Submit</button>
+          <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit"
+            [disabled]="!uploader.queue.length">Submit</button>
         </form>
       </div>
     </div>

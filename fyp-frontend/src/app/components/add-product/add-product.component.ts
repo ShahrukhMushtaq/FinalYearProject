@@ -24,8 +24,8 @@ export class AddProductComponent implements OnInit {
       'category': ['', Validators.required],
       'description': ['', Validators.required],
       'initialValue': ['', Validators.compose([Validators.min(1), Validators.required])],
-      'status': ["false", Validators.required],
-      'itemImage': [[''], Validators.required],
+      'status': ["", Validators.required],
+      'itemImage': [[]],
       'user': [this.auth.CurrentUser._id, Validators.required]
     })
   }
@@ -38,7 +38,7 @@ export class AddProductComponent implements OnInit {
     this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
       let res: any = JSON.parse(response);
       console.log(res);
-      this.productForm.value.itemImage = [];
+      // this.productForm.value.itemImage = [];
       this.productForm.value.itemImage.push(res.secure_url);
       this.uplod = true
       return { item, response, status, headers };
@@ -53,29 +53,34 @@ export class AddProductComponent implements OnInit {
       this.snotifyService.warning("Invalid Details", this.auth.getConfig())
     }
     else {
-      this.auction.addItem(this.productForm.value)
-        .subscribe(res => {
-          if (res['status'] == 200) {
-            this.productForm.setValue({
-              title: '',
-              description: '',
-              category: '',
-              status: 'false',
-              initialValue: '',
-              itemImage: [''],
-              user: this.auth.CurrentUser._id
-            })
+      if (this.uplod) {
+        this.auction.addItem(this.productForm.value)
+          .subscribe(res => {
+            if (res['status'] == 200) {
+              this.productForm.setValue({
+                title: '',
+                description: '',
+                category: '',
+                status: 'false',
+                initialValue: '',
+                itemImage: [''],
+                user: this.auth.CurrentUser._id
+              })
+              this.spinner.hide();
+              this.snotifyService.success('Success', this.auth.getConfig())
+            } else {
+              this.spinner.hide();
+              this.snotifyService.warning(res['messsage'], this.auth.getConfig())
+            }
+          }, err => {
             this.spinner.hide();
-            this.snotifyService.success('Success', this.auth.getConfig())
-          } else {
-            this.spinner.hide();
-            this.snotifyService.warning(res['messsage'], this.auth.getConfig())
-          }
-        }, err => {
-          this.spinner.hide();
-          this.snotifyService.error(err.error.message, this.auth.getConfig())
-        })
+            this.snotifyService.error(err.error.message, this.auth.getConfig())
+          })
+      }
     }
   }
 
+  selectFiles() {
+    console.log(this.uploader)
+  }
 }
