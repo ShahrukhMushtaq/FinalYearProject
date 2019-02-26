@@ -118,8 +118,11 @@
         </div>
         <div class="col-6" *ngIf="uploader.queue.length">
           <button class="btn-floating blue-gradient" [hidden]="uplod" (click)="upload()"><i
-              class="fa fa-upload"></i></button>
+              class="fa fa-cloud-upload"></i></button>
           <button class="btn-floating blue-gradient" *ngIf="uplod"><i class="fa fa-check"></i></button>
+          <span *ngIf="uploader.isUploading">
+              <i style="font-size:25px; color:aquamarine" class="fa fa-spinner fa-spin"></i>
+            </span>
         </div>
       </div>
     </div>

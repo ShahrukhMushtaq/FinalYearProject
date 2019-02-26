@@ -72,11 +72,15 @@
                                         style="float:right; font-size:20px; cursor: pointer; color: #d9534f; margin-left:9px;"
                                         (click)="uploader.queue[0].remove()"
                                         [hidden]="uploader.queue[0].isUploaded"></span>
-                                    <span type="button" class="fa fa-upload" (click)="upload()"
+                                    <span type="button" class="fa fa-cloud-upload" (click)="upload()"
                                         style="float:right; font-size:20px; color: #337ab7; cursor: pointer;"
                                         [hidden]="uploader.queue[0].isUploaded"></span>
                                     <span class="fa fa-check" style="float:right; font-size:20px; color: #5cb85c"
                                         *ngIf="uploader.queue[0].isUploaded"></span>
+                                    <span *ngIf="uploader.isUploading">
+                                        <i style="font-size:25px; color:aquamarine"
+                                            class="fa fa-spinner fa-spin"></i>
+                                    </span>
                                 </p>
                             </div>
                         </div>
