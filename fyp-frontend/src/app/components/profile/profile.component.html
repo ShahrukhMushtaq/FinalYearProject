@@ -36,25 +36,37 @@
       <input type="text" [(ngModel)]="userData.lastName" class="form-control" placeholder="Enter Last Name">
       <input type="text" [(ngModel)]="userData.age" class="form-control" placeholder="Enter Age">
       <div class="custom-control custom-radio">
-        <input type="radio" class="custom-control-input" [(ngModel)]="userData.gender" value="Male" id="male" name="gender"
-          [checked]="checkedMale">
+        <input type="radio" class="custom-control-input" [(ngModel)]="userData.gender" value="Male" id="male"
+          name="gender" [checked]="checkedMale">
         <label class="custom-control-label" for="male">Male</label>
       </div>
       <div class="custom-control custom-radio">
-        <input type="radio" class="custom-control-input" [(ngModel)]="userData.gender" value="Female" id="female" name="gender"
-          [checked]="checkedFemale">
+        <input type="radio" class="custom-control-input" [(ngModel)]="userData.gender" value="Female" id="female"
+          name="gender" [checked]="checkedFemale">
         <label class="custom-control-label" for="female">Female</label>
       </div>
       <input type="text" [(ngModel)]="userData.phone" class="form-control" placeholder="Enter Phone">
       <input type="text" [(ngModel)]="userData.location" class="form-control" placeholder="Enter Location">
       <input type="text" [(ngModel)]="userData.about" class="form-control" placeholder="About Me">
       <div class="input-group">
-        <div class="input-group-prepend">
-          <button type="button" class="input-group-text" (click)="upload()">Upload</button>
+        <div class="col">
+          <span style="float:left;">
+            <img width="150px" height="100px" src={{userData.avatar}} alt=""
+              style="margin-bottom: 7px;margin-left: 7px;" [hidden]="uploader.queue.length">
+            <img *ngIf="uploader.queue.length" src="" imgPreview [image]="uploader.queue[0]?._file" width="150px"
+              height="100px" />
+            <i style="cursor:pointer; font-size: 20px; position: absolute; margin-left: -15px; margin-top: -3px; color: #d9534f"
+              class="fa fa-times" (click)="userData.avatar = ''" [hidden]="userData.avatar == ''"></i>
+            <span *ngIf="uploader.queue.length">
+              <span class="fa fa-check" style="font-size:25px; color: #7986CB"
+                *ngIf="uploader.queue[0].isUploaded"></span>
+              <span class="fa fa-upload" style="font-size:25px; color: #5cb85c; cursor: pointer;" (click)="upload()"
+                [hidden]="uploader.queue[0].isUploaded"></span>
+            </span>
+          </span>
         </div>
-        <div class="custom-file">
-          <input type="file" ng2FileSelect [uploader]="uploader" class="custom-file-input">
-          <label class="custom-file-label">Choose file</label>
+        <div class="col">
+          <input type="file" ng2FileSelect [uploader]="uploader">
         </div>
       </div>
     </div>

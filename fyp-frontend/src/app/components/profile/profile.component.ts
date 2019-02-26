@@ -55,11 +55,11 @@ export class ProfileComponent implements OnInit {
         this.spinner.hide();
         this.snotifyService.warning(err.error.message, this.auth.getConfig())
       })
-      // console.log(this.auth.CurrentUser)
+    // console.log(this.auth.CurrentUser)
   }
 
   getPicture() {
-    return this.userData.avatar !== ' ' ? this.userData.avatar : 'https://res.cloudinary.com/shahrukhmushtaq/image/upload/v1548766363/auction-users/boy.png';
+    return this.userData.avatar !== '' ? this.userData.avatar : 'https://res.cloudinary.com/shahrukhmushtaq/image/upload/v1548766363/auction-users/boy.png';
   }
 
   openModal(template: TemplateRef<any>) {
@@ -82,13 +82,13 @@ export class ProfileComponent implements OnInit {
   }
 
   upload() {
-    console.log(this.uploader)
-    this.uploader.uploadAll();
-    this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
+    console.log(this.uploader.queue)
+    this.uploader.queue[0].upload();
+    this.uploader.queue[0].onSuccess = (response: string, status: number, headers: any): any => {
       let res: any = JSON.parse(response);
       console.log(res);
       this.userData.avatar = res.secure_url;
-      return { item, response, status, headers };
+      return { response, status, headers };
     };
   }
 }
