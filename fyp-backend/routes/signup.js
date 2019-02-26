@@ -40,6 +40,8 @@ function validateUser(user) {
         gender: Joi.string().required(),
         avatar: Joi.string(),
         about: Joi.string(),
+        createdAt: Joi.string(),
+        updatedAt: Joi.string(),
     }
     return Joi.validate(user, schema)
 }

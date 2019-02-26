@@ -35,6 +35,8 @@ function validateAuction(auction) {
         endTime: Joi.number().required(),
         endDate: Joi.number().required(),
         startingBid: Joi.number().required(),
+        createdAt: Joi.string(),
+        updatedAt: Joi.string(),
     }
     return Joi.validate(auction, schema)
 }

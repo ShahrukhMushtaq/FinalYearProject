@@ -33,7 +33,9 @@ function validateItem(item) {
         status: Joi.boolean().required(),
         itemImage: Joi.array().items(Joi.string().required()).required(),
         user: Joi.string().required(),
-        _id: Joi.string()
+        _id: Joi.string(),
+        createdAt: Joi.string(),
+        updatedAt: Joi.string(),
     }
     return Joi.validate(item, schema)
 }

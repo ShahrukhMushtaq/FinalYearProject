@@ -38,6 +38,8 @@ function validateUser(user) {
         about: Joi.string(),
         _id: Joi.string(),
         email: Joi.string().email().required(),
+        createdAt: Joi.string(),
+        updatedAt: Joi.string(),
     }
     return Joi.validate(user, schema)
 }
