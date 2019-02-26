@@ -14,7 +14,6 @@ export class ActiveAuctionComponent implements OnInit, OnDestroy {
   showAuctions = false;
   intervalId = 0;
   message = [];
-  seconds = 11;
   constructor(private auction: AuctionService, private snotifyService: SnotifyService, private auth: AuthService) { }
 
   ngOnInit() {
@@ -32,8 +31,8 @@ export class ActiveAuctionComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         if (data['status'] == 200) {
           this.Auctions = data['content']
-          this.showAuctions = true;
           this.start();
+          this.showAuctions = true;
           this.snotifyService.success(data['message'], this.auth.getConfig())
         } else {
           this.showAuctions = false;
@@ -54,21 +53,22 @@ export class ActiveAuctionComponent implements OnInit, OnDestroy {
   ngOnDestroy() { this.clearTimer(); }
 
   start() { this.countDown(); }
-
   private countDown() {
     this.clearTimer();
     this.Auctions.map((auction, i) => {
       this.intervalId = window.setInterval(() => {
         auction.endDate -= 1;
         if (auction.endDate === 0) {
-          this.message = [];
+          this.message[i] = 'Khatam Ho Gaya';
         } else {
           let seconds = auction.endDate - Date.now();
+          let hours = auction.endTime - Date.now();
           let date = new Date(seconds).getDate();
-          let min = new Date(seconds).getMinutes();
-          let sec = new Date(seconds).getSeconds()
-          if (seconds < 0) { this.message = []; }
-          this.message[i] = `${date} Days ${min} Minutes ${sec} Seconds`;
+          let hour = new Date(hours).getHours();
+          let min = new Date(hours).getMinutes();
+          let sec = new Date(hours).getSeconds();
+          if (seconds < 0 || hours < 0) { this.message[i] = 'Khatam Ho Gaya'; }
+          else this.message[i] = `${date} Days ${hour} Hours ${min} Minutes ${sec} Seconds`;
         }
       }, 1000);
     })
