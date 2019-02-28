@@ -24,57 +24,59 @@
   </div>
 </div>
 <ng-template #updatePro>
-  <div class="modal-header">
-    <h4 class="modal-title">Update Your Info</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body text-center">
-    <div class="form-group">
-      <input type="text" [(ngModel)]="userData.firstName" class="form-control" placeholder="Enter First Name">
-      <input type="text" [(ngModel)]="userData.lastName" class="form-control" placeholder="Enter Last Name">
-      <input type="text" [(ngModel)]="userData.age" class="form-control" placeholder="Enter Age">
-      <div class="custom-control custom-radio">
-        <input type="radio" class="custom-control-input" [(ngModel)]="userData.gender" value="Male" id="male"
-          name="gender" [checked]="checkedMale">
-        <label class="custom-control-label" for="male">Male</label>
-      </div>
-      <div class="custom-control custom-radio">
-        <input type="radio" class="custom-control-input" [(ngModel)]="userData.gender" value="Female" id="female"
-          name="gender" [checked]="checkedFemale">
-        <label class="custom-control-label" for="female">Female</label>
-      </div>
-      <input type="text" [(ngModel)]="userData.phone" class="form-control" placeholder="Enter Phone">
-      <input type="text" [(ngModel)]="userData.location" class="form-control" placeholder="Enter Location">
-      <input type="text" [(ngModel)]="userData.about" class="form-control" placeholder="About Me">
-      <div class="input-group">
-        <div class="col">
-          <span style="float:left;">
-            <img width="150px" height="100px" src={{userData.avatar}} alt=""
-              style="margin-bottom: 7px;margin-left: 7px;" [hidden]="uploader.queue.length">
-            <img *ngIf="uploader.queue.length" src="" imgPreview [image]="uploader.queue[0]?._file" width="150px"
-              height="100px" />
-            <i style="cursor:pointer; font-size: 20px; position: absolute; margin-left: -15px; margin-top: -3px; color: #d9534f"
-              class="fa fa-times" (click)="userData.avatar = ''" [hidden]="userData.avatar == ''"></i>
-            <span *ngIf="uploader.queue.length">
-              <span class="fa fa-check" style="font-size:25px; color: #7986CB"
-                *ngIf="uploader.queue[0].isUploaded"></span>
-              <span class="fa fa-cloud-upload" style="font-size:25px; color: #5cb85c; cursor: pointer;"
-                (click)="upload()" [hidden]="uploader.queue[0].isUploaded"></span>
-            </span>
-            <span *ngIf="uploader.isUploading">
-              <i style="font-size:25px; color:aquamarine" class="fa fa-spinner fa-spin"></i>
-            </span>
-          </span>
-        </div>
-        <div class="col">
-          <input type="file" ng2FileSelect [uploader]="uploader">
-        </div>
-      </div>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Update Your Info</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
-    <div class="form-group">
-      <button type="button" class="btn btn-primary" (click)="updateProfile()">Update Me</button>
+    <div class="modal-body text-center">
+      <div class="form-group">
+        <input type="text" [(ngModel)]="userData.firstName" class="form-control" placeholder="Enter First Name">
+        <input type="text" [(ngModel)]="userData.lastName" class="form-control" placeholder="Enter Last Name">
+        <input type="text" [(ngModel)]="userData.age" class="form-control" placeholder="Enter Age">
+        <div class="custom-control custom-radio">
+          <input type="radio" class="custom-control-input" [(ngModel)]="userData.gender" value="Male" id="male"
+            name="gender" [checked]="checkedMale">
+          <label class="custom-control-label" for="male">Male</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input type="radio" class="custom-control-input" [(ngModel)]="userData.gender" value="Female" id="female"
+            name="gender" [checked]="checkedFemale">
+          <label class="custom-control-label" for="female">Female</label>
+        </div>
+        <input type="text" [(ngModel)]="userData.phone" class="form-control" placeholder="Enter Phone">
+        <input type="text" [(ngModel)]="userData.location" class="form-control" placeholder="Enter Location">
+        <input type="text" [(ngModel)]="userData.about" class="form-control" placeholder="About Me">
+        <div class="input-group">
+          <div class="col">
+            <span style="float:left;">
+              <img width="150px" height="100px" src={{userData.avatar}} alt=""
+                style="margin-bottom: 7px;margin-left: 7px;" [hidden]="uploader.queue.length">
+              <img *ngIf="uploader.queue.length" src="" imgPreview [image]="uploader.queue[0]?._file" width="150px"
+                height="100px" />
+              <i style="cursor:pointer; font-size: 20px; position: absolute; margin-left: -15px; margin-top: -3px; color: #d9534f"
+                class="fa fa-times" (click)="userData.avatar = ''" [hidden]="userData.avatar == ''"></i>
+              <span *ngIf="uploader.queue.length">
+                <span class="fa fa-check" style="font-size:25px; color: #7986CB"
+                  *ngIf="uploader.queue[0].isUploaded"></span>
+                <span class="fa fa-cloud-upload" style="font-size:25px; color: #5cb85c; cursor: pointer;"
+                  (click)="upload()" [hidden]="uploader.queue[0].isUploaded"></span>
+              </span>
+              <span *ngIf="uploader.isUploading">
+                <i style="font-size:25px; color:aquamarine" class="fa fa-spinner fa-spin"></i>
+              </span>
+            </span>
+          </div>
+          <div class="col">
+            <input type="file" ng2FileSelect [uploader]="uploader">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-primary" (click)="updateProfile()">Update Me</button>
+      </div>
     </div>
   </div>
 </ng-template>
