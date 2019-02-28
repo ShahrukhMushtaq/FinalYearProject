@@ -2,36 +2,38 @@
     <nav class="mb-1 navbar navbar-expand-lg navbar-dark default-color">
         <a class="navbar-brand" href="#">
             <img src="https://res.cloudinary.com/shahrukhmushtaq/image/upload/v1549451912/auction-users/pinterest_board_photo.png"
-                height="50" width="67px" class="d-inline-block align-top" alt="mdb logo">
+                style="height:41px; width:65px" class="d-inline-block align-top" alt="mdb logo">
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
-            aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+            id="ss" aria-expanded="false" aria-controls="navbarSupportedContent-333" aria-label="Toggle navigation"
+            (click)="onOff()">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+        <div id="navbarSupportedContent-333" [class]="getClass()">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" routerLink=""><i class="fa fa-home"></i> <span
+                <li class="nav-item" [class]="setActive('/dashboard')">
+                    <a class="nav-link" routerLink="" style="display: inline-block;"><i class="fa fa-home"></i> <span
                             class="clearfix d-none d-sm-inline-block">Home</span>
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item" *ngIf="auth.isAuthenticated()">
-                    <a class="nav-link" routerLink="user"><i class="fa fa-user"></i> <span
-                            class="clearfix d-none d-sm-inline-block">Account</span></a>
+                <li class="nav-item" *ngIf="auth.isAuthenticated()" [class]="setActive('/user/profile')">
+                    <a class="nav-link" routerLink="user" style="display: inline-block;"><i class="fa fa-user"></i>
+                        <span class="clearfix d-none d-sm-inline-block">Account</span></a>
                 </li>
-                <li class="nav-item" *ngIf="!auth.isAuthenticated()">
-                    <a class="nav-link" routerLink="login"><i class="fa fa-sign-in"></i> <span
-                            class="clearfix d-none d-sm-inline-block">SignIn</span></a>
+                <li class="nav-item" *ngIf="!auth.isAuthenticated()" [class]="setActive('/login')">
+                    <a class="nav-link" routerLink="login" style="display: inline-block;"><i class="fa fa-sign-in"></i>
+                        <span class="clearfix d-none d-sm-inline-block">SignIn</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="contact-us"><i class="fa fa-envelope"></i> <span
+                <li class="nav-item" [class]="setActive('/contact-us')">
+                    <a class="nav-link" routerLink="contact-us" style="display: inline-block;"><i
+                            class="fa fa-envelope"></i> <span
                             class="clearfix d-none d-sm-inline-block">Contact</span></a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto nav-flex-icons" *ngIf="auth.isAuthenticated()">
                 <li class="nav-item">
-                    <a class="nav-link" (click)="logout()">
+                    <a class="nav-link" (click)="logout()" style="display: inline-block;">
                         <img src={{profilePic}} class="rounded-circle z-depth-0" alt="avatar image" height="35">
                         Logout
                     </a>

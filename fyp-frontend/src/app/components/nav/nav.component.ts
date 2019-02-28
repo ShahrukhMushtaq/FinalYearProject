@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
   profilePic;
+  bool = false;
   constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
@@ -25,5 +26,19 @@ export class NavComponent implements OnInit {
   logout() {
     localStorage.removeItem("token");
     this.router.navigate(['login']);
+  }
+
+  onOff() {
+    this.bool = !this.bool;
+  }
+  getClass() {
+    if (this.bool) {
+      document.getElementById('navbarSupportedContent-333').setAttribute('class', 'collapse navbar-collapse show')
+    } else {
+      document.getElementById('navbarSupportedContent-333').setAttribute('class', 'collapse navbar-collapse')
+    }
+  }
+  setActive(url) {
+    return this.router.url == url ? 'nav-item active' : 'nav-item'
   }
 }
