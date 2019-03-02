@@ -146,20 +146,20 @@
                             </div>
                         </div>
                         <div class="col-lg-7">
-                            <div class="card">
+                            <div class="card-body">
                                 <h2 class="h2-responsive product-name">
-                                    <strong>{{quickProduct.item.title? quickProduct.item.title:"No Title"}}</strong>
+                                    <strong>Title:{{quickProduct.item.title? quickProduct.item.title:"No Title"}}</strong>
                                 </h2>
                                 <h4 class="h4-responsive">
                                     <span class="green-text">
-                                        <strong>{{quickProduct.item.initialValue | currency}}</strong>
+                                        <strong>Product Price:{{quickProduct.item.initialValue | currency}}</strong>
                                     </span>
                                 </h4>
-                                <div class="card-body">
-                                    <b>Description:</b> {{quickProduct.item.description}}
-                                    <br>
-                                    <b>Time Left:</b> {{message[quickProduct.index]}}
-                                </div>
+                                <b>Description:</b> {{quickProduct.item.description}}
+                                <br>
+                                <b>Time Left:</b> {{message[quickProduct.index]}}
+                                <br>
+                                <b>Current Bid:</b> {{minBidDB[quickProduct.index]}}
                             </div>
                             <div class="card-body">
                                 <div class="text-center">

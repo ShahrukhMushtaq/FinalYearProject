@@ -7,6 +7,7 @@ var updateProfile = require('./update-profile')
 var auth = require('../middleware/auth')
 var addItem = require('./items/add-item')
 var getItem = require('./items/get-item')
+var getAllItem = require('./items/getAll-item')
 var updateItem = require('./items/update-item')
 var createAuction = require('./auction/create-auction')
 var getAuction = require('./auction/get-auction')
@@ -38,12 +39,13 @@ router.put('/my/update-profile/:id', auth, updateProfile)
 router.post('/add/item', auth, addItem)
 router.get('/get/item/:id', auth, getItem)
 router.put('/update/item/:id', auth, updateItem)
+router.get('/getAll/item', getAllItem)
 
 router.post('/create/auction', auth, createAuction)
 router.get('/get/auction/:id', auth, getAuction)
 router.get('/get/auction', getAllAuction)
 
-router.post('/create/bid', bid)
+router.post('/create/bid', auth, bid)
 router.get('/get/bid/:auctionID', getBid)
 
 module.exports = router;
