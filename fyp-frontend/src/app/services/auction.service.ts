@@ -18,6 +18,11 @@ export class AuctionService {
     // return this.http.get(`http://localhost:3000/api/get/item/${id}`)
   }
 
+  getAllItem() {
+    return this.http.get('https://auctions-app.herokuapp.com/api/getAll/item')
+    // return this.http.get('http://localhost:3000/api/getAll/item')
+  }
+
   updateItem(data) {
     return this.http.put(`https://auctions-app.herokuapp.com/api/update/item/${data._id}`, data)
     // return this.http.put(`http://localhost:3000/api/update/item/${data._id}`, data)
