@@ -17,8 +17,7 @@ module.exports = async (req, res) => {
             const auction = new Auction({
                 user: req.body.user,
                 item: req.body.item,
-                endTime: req.body.endTime,
-                endDate: req.body.endDate,
+                endDateTime: req.body.endDateTime,
                 startingBid: req.body.startingBid
             })
             await auction.save();
@@ -32,8 +31,7 @@ function validateAuction(auction) {
     const schema = {
         user: Joi.string().required(),
         item: Joi.string().required(),
-        endTime: Joi.number().required(),
-        endDate: Joi.number().required(),
+        endDateTime: Joi.number().required(),
         startingBid: Joi.number().required(),
         createdAt: Joi.string(),
         updatedAt: Joi.string(),
