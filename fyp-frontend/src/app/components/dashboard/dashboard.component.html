@@ -49,6 +49,7 @@
         </div>
     </div>
     <div class="card" style="margin: 20px">
+        <h3 class="card-title text-center"><strong>Auctions</strong></h3>
         <div class="row" style="margin: 15px" *ngIf="showAuctions">
             <div class="col-lg-3 col-md-6 mb-lg-0 mb-4" *ngFor="let auction of Auctions let i = index">
                 <div class="card card-cascade narrower card-ecommerce" style="margin:15px">
@@ -65,7 +66,7 @@
                                 <a>{{auction.item.title}}</a>
                             </strong>
                         </h4>
-                        <p class="card-text">{{message[i]}}
+                        <p class="card-text" style="height: 40px;">{{message[i]}}
                         </p>
                         <div class="card-footer px-1">
                             <span class="float-left font-weight-bold">
@@ -83,8 +84,8 @@
                                     (click)="modalData(auction,i)" data-target="#modalQuickView">
                                     <i class="fa fa-eye grey-text ml-3"></i>
                                 </a>
-                                <a class="active" data-toggle="tooltip" data-placement="top" title="Place a Bid"
-                                    [hidden]="message[i] == 'Expired'"
+                                <a class="active" data-toggle="tooltip" *ngIf="auth.isAuthenticated()"
+                                    data-placement="top" title="Place a Bid" [hidden]="message[i] == 'Expired'"
                                     (click)="showStaticModal(staticModal,auction._id,auction.startingBid,i)">
                                     <i class="fa fa-gavel ml-3"></i>
                                 </a>
@@ -94,6 +95,30 @@
                 </div>
             </div>
         </div>
+        <h1 class="text-center" *ngIf="!showAuctions">No Auctions Available</h1>
+    </div>
+    <div class="card" style="margin: 20px">
+        <h3 class="card-title text-center"><strong>Products</strong></h3>
+        <div class="row" style="margin: 15px" *ngIf="showProducts">
+            <div class="col-lg-3 col-md-6 mb-lg-0 mb-4" *ngFor="let prod of Products let j = index">
+                <div class="card card-image" style="margin:15px;">
+                    <!-- [style.background]="'url(' + prod.itemImage[0] + ')'-->
+                    <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                        <div>
+                            <h5 class="pink-text"><i class="fa fa-chart-pie"></i> {{prod.category}}</h5>
+                            <h3 class="card-title pt-2"><strong>{{prod.title}}</strong></h3>
+                            <p style="height: 192px;">
+                                {{prod.description}}
+                            </p>
+                            <p> {{prod.initialValue | currency:'Rs.':'code':'.0-0'}} </p>
+                            <a class="btn btn-pink" [routerLink]='["/contact-us"]'><i class="fa fa-clone left"></i> View
+                                Product</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h1 class="text-center" *ngIf="!showProducts">No Products Available</h1>
     </div>
 </main>
 
@@ -159,7 +184,7 @@
                                 <br>
                                 <b>Time Left:</b> {{message[quickProduct.index]}}
                                 <br>
-                                <b>Current Bid:</b> {{minBidDB[quickProduct.index]}}
+                                <b>Current Bid:</b> {{minBidDB[quickProduct.index] | currency:'Rs.':'code':'.0-0'}}
                             </div>
                             <div class="card-body">
                                 <div class="text-center">

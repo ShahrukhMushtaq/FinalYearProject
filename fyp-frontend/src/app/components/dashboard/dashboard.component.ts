@@ -19,9 +19,11 @@ export class DashboardComponent implements OnInit {
     maxbid: ''
   }
   Auctions = [];
+  Products = [];
   intervalId = 0;
   message = [];
   showAuctions = false;
+  showProducts = false;
   showQuickLook = false;
   quickProduct: any;
   bidValue;
@@ -61,6 +63,16 @@ export class DashboardComponent implements OnInit {
       }, err => {
         console.log(err)
         this.snotifyService.error("Internet Problem", this.auth.getConfig())
+      })
+    this.auction.getAllItem()
+      .subscribe(data => {
+        if (data['status'] == 200) {
+          this.Products = data['content']
+          this.showProducts = true;
+          console.log(this.Products)
+        }
+      }, err => { 
+        console.log(err)
       })
   }
 
