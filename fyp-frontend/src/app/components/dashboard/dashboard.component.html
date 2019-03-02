@@ -22,8 +22,8 @@
                         <div class="form-row">
                             <div class="col">
                                 <div class="md-form">
-                                    <input type="text" placeholder="By Date" class="form-control" [(ngModel)]="searchAuction.date"
-                                        bsDatepicker>
+                                    <input type="text" placeholder="By Date" class="form-control"
+                                        [(ngModel)]="searchAuction.date" bsDatepicker>
                                 </div>
                             </div>
                             <div class="col">
@@ -40,67 +40,170 @@
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <button class="btn btn-outline-info btn-rounded" (click)="searchAuctions()" type="submit">Search</button>
+                            <button class="btn btn-outline-info btn-rounded" (click)="searchAuctions()"
+                                type="submit">Search</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="row" style="margin: 39px">
-        <div class="col-lg-3 col-md-6 mb-lg-0 mb-4" *ngFor="let i of [0,1,2,3,4,5]">
-            <div class="card card-cascade narrower card-ecommerce" style="margin:15px">
-                <div class="view view-cascade overlay">
-                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/2.jpg" class="card-img-top"
-                        alt="sample photo">
-                    <a>
-                        <div class="mask rgba-white-slight"></div>
-                    </a>
-                </div>
-                <div class="card-body card-body-cascade text-center">
-                    <h4 class="card-title">
-                        <strong>
-                            <a href="">Denim trousers</a>
-                        </strong>
-                    </h4>
-                    <ul class="rating">
-                        <li>
-                            <i class="fa fa-star"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star"></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-star"></i>
-                        </li>
-                    </ul>
-                    <p class="card-text">In fact, visuals are so deeply entrenched in
-                    </p>
-                    <div class="card-footer px-1">
-                        <span class="float-left font-weight-bold">
-                            <strong>49$</strong>
-                        </span>
-                        <span class="float-right">
-                            <a data-toggle="tooltip" data-placement="top" title="Add to Cart">
-                                <i class="fa fa-shopping-cart grey-text ml-3"></i>
-                            </a>
-                            <a data-toggle="tooltip" data-placement="top" title="Share">
-                                <i class="fa fa-share-alt grey-text ml-3"></i>
-                            </a>
-                            <a class="active" data-toggle="tooltip" data-placement="top" title="Added to Wishlist">
-                                <i class="fa fa-heart ml-3"></i>
-                            </a>
-                        </span>
+    <div class="card" style="margin: 20px">
+        <div class="row" style="margin: 15px" *ngIf="showAuctions">
+            <div class="col-lg-3 col-md-6 mb-lg-0 mb-4" *ngFor="let auction of Auctions let i = index">
+                <div class="card card-cascade narrower card-ecommerce" style="margin:15px">
+                    <div class="view view-cascade overlay">
+                        <img src={{auction.item.itemImage[0]}} class="card-img-top" alt="sample photo"
+                            style="height: 150px;">
+                        <a>
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+                    <div class="card-body card-body-cascade text-center">
+                        <h4 class="card-title">
+                            <strong>
+                                <a>{{auction.item.title}}</a>
+                            </strong>
+                        </h4>
+                        <p class="card-text">{{message[i]}}
+                        </p>
+                        <div class="card-footer px-1">
+                            <span class="float-left font-weight-bold">
+                                <strong
+                                    *ngIf="message[i] == 'Expired' && minBidDB[i] > 0"><s>{{minBidDB[i] | currency:'Rs.':'code':'.0-0'}}</s></strong>
+                                <strong
+                                    *ngIf="message[i] == 'Expired' && minBidDB[i] == 0"><s>{{auction.startingBid | currency:'Rs.':'code':'.0-0'}}</s></strong>
+                                <strong
+                                    *ngIf="message[i] != 'Expired' && minBidDB[i] > 0">{{minBidDB[i] | currency:'Rs.':'code':'.0-0'}}</strong>
+                                <strong
+                                    *ngIf="message[i] != 'Expired' && minBidDB[i] == 0">{{auction.startingBid | currency:'Rs.':'code':'.0-0'}}</strong>
+                            </span>
+                            <span class="float-right">
+                                <a data-toggle="modal" data-placement="top" title="Quick Look"
+                                    (click)="modalData(auction,i)" data-target="#modalQuickView">
+                                    <i class="fa fa-eye grey-text ml-3"></i>
+                                </a>
+                                <a class="active" data-toggle="tooltip" data-placement="top" title="Place a Bid"
+                                    [hidden]="message[i] == 'Expired'"
+                                    (click)="showStaticModal(staticModal,auction._id,auction.startingBid,i)">
+                                    <i class="fa fa-gavel ml-3"></i>
+                                </a>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
+
+<div *ngIf="showQuickLook">
+    <div class="modal fade" id="modalQuickView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails"
+                                data-ride="carousel">
+                                <div class="carousel-inner" role="listbox">
+                                    <div class="carousel-item active">
+                                        <img class="d-block w-100" src={{quickProduct.item.itemImage[0]}}
+                                            alt="First slide">
+                                    </div>
+                                    <div class="carousel-item" *ngIf="quickProduct.item.itemImage[1]">
+                                        <img class="d-block w-100" src={{quickProduct.item.itemImage[1]}}
+                                            alt="Second slide">
+                                    </div>
+                                    <div class="carousel-item" *ngIf="quickProduct.item.itemImage[2]">
+                                        <img class="d-block w-100" src={{quickProduct.item.itemImage[2]}}
+                                            alt="Third slide">
+                                    </div>
+                                </div>
+                                <a class="carousel-control-prev" href="#carousel-thumb" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carousel-thumb" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                                <ol class="carousel-indicators">
+                                    <li *ngIf="quickProduct.item.itemImage[0]" data-target="#carousel-thumb"
+                                        data-slide-to="0" class="active">
+                                        <img class="d-block img-fluid" src={{quickProduct.item.itemImage[0]}}></li>
+                                    <li *ngIf="quickProduct.item.itemImage[1]" data-target="#carousel-thumb"
+                                        data-slide-to="0" class="active">
+                                        <img class="d-block img-fluid" src={{quickProduct.item.itemImage[1]}}></li>
+                                    <li *ngIf="quickProduct.item.itemImage[2]" data-target="#carousel-thumb"
+                                        data-slide-to="0" class="active">
+                                        <img class="d-block img-fluid" src={{quickProduct.item.itemImage[2]}}></li>
+                                    <li *ngIf="quickProduct.item.itemImage[3]" data-target="#carousel-thumb"
+                                        data-slide-to="0" class="active">
+                                        <img class="d-block img-fluid" src={{quickProduct.item.itemImage[3]}}></li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="card">
+                                <h2 class="h2-responsive product-name">
+                                    <strong>{{quickProduct.item.title? quickProduct.item.title:"No Title"}}</strong>
+                                </h2>
+                                <h4 class="h4-responsive">
+                                    <span class="green-text">
+                                        <strong>{{quickProduct.item.initialValue | currency}}</strong>
+                                    </span>
+                                </h4>
+                                <div class="card-body">
+                                    <b>Description:</b> {{quickProduct.item.description}}
+                                    <br>
+                                    <b>Time Left:</b> {{message[quickProduct.index]}}
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #staticModal>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Place Your Bid</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body text-center">
+            <input type="number" [(ngModel)]="bidValue" (ngModelChange)="checkBidVal(minBid,bidValue)">
+            <br>
+            <button class="btn btn-primary" (click)="placeBid(successModal)" [disabled]="btnFlag">Bid</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #successModal>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Place Your Bid</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="thank-you-pop">
+                <img src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png" alt="">
+                <p>Your have successfully bid on this auction</p>
+                <h3 class="cupon-pop">Bid Amount: <span>{{bidValue}}</span></h3>
+            </div>
+        </div>
+    </div>
+</ng-template>

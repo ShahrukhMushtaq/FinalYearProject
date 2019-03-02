@@ -14,18 +14,55 @@
       </a>
       <h4 class="h4 mb-4">Title: {{i.item.title}}</h4>
       <p class="font-weight-normal"><strong>Description: </strong>{{i.item.description}}</p>
-      <p class="font-weight-normal"><strong>Fixed Price: </strong>{{i.item.initialValue | currency:'Rs.':'code'}}</p>
+      <p class="font-weight-normal"><strong>Fixed Price: </strong>{{i.item.initialValue | currency:'Rs.':'code':'.0-0'}}
+      </p>
       <p class="font-weight-normal"><strong>Status: </strong>Available Now
       </p>
-      <p class="font-weight-normal"><strong>Auction End Date: </strong>{{i.endDate | date:'medium'}}</p>
+      <p class="font-weight-normal"><strong>Auction End Date: </strong>{{i.endDateTime | date:'medium'}}</p>
       <p class="font-weight-normal"><strong>Time Left: </strong>{{message[j]}}</p>
-      <p class="font-weight-normal"><strong>Starting Bid: </strong>{{i.startingBid | currency:'Rs.':'code'}}</p>
-      <p class="font-weight-normal"><strong>Current Bid: </strong>{{500 | currency:'Rs.':'code'}}</p>
+      <p class="font-weight-normal"><strong>Starting Bid: </strong>{{i.startingBid | currency:'Rs.':'code':'.0-0'}}</p>
+      <p class="font-weight-normal"><strong>Current Bid: </strong>{{minBidDB[j] | currency:'Rs.':'code':'.0-0'}}</p>
 
-      <p class="font-weight-normal">Posted by <a><strong>{{userData?.firstName}}</strong></a>, on {{i.createdAt | date}}</p>
-      <a class="btn btn-success">Bid Now</a>
+      <p class="font-weight-normal">Posted by <a><strong>{{userData?.firstName}}</strong></a>, on {{i.createdAt | date}}
+      </p>
+      <button class="btn btn-success" [disabled]="message[j] == 'Expired'"
+        (click)="showStaticModal(staticModal,i._id,i.startingBid,j)">Bid
+        Now</button>
     </div>
   </div>
 </div>
 
 <!-- <input class="form-check-input" type="checkbox" id="checkbox1"><label class="form-check-label" for="checkbox1" class="label-table"></label>-->
+<ng-template #staticModal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Place Your Bid</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body text-center">
+      <input type="number" [(ngModel)]="bidValue" (ngModelChange)="checkBidVal(minBid,bidValue)">
+      <br>
+      <button class="btn btn-primary" (click)="placeBid(successModal)" [disabled]="btnFlag">Bid</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #successModal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Place Your Bid</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="thank-you-pop">
+        <img src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png" alt="">
+        <p>Your have successfully bid on this auction</p>
+        <h3 class="cupon-pop">Bid Amount: <span>{{bidValue}}</span></h3>
+      </div>
+    </div>
+  </div>
+</ng-template>

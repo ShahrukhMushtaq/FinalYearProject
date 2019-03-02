@@ -37,4 +37,13 @@ export class AuctionService {
     // return this.http.get('http://localhost:3000/api/get/auction')
     return this.http.get('https://auctions-app.herokuapp.com/api/get/auction')
   }
+
+  createBid(data) {
+    // return this.http.post('http://localhost:3000/api/create/bid', data)
+    return this.http.post('https://auctions-app.herokuapp.com/api/create/bid', data)
+  }
+  getBid(id) {
+    // return this.http.get(`http://localhost:3000/api/get/bid/${id}`)
+    return this.http.get(`https://auctions-app.herokuapp.com/api/get/bid/${id}`)
+  }
 }

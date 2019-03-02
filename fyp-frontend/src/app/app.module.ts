@@ -12,6 +12,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ModalModule } from "ngx-bootstrap";
 import { BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
@@ -87,7 +88,8 @@ function getToken() {
     NgxSpinnerModule,
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    TimepickerModule.forRoot()
+    TimepickerModule.forRoot(),
+    OwlDateTimeModule, OwlNativeDateTimeModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
