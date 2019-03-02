@@ -25,8 +25,7 @@ export class CreateAuctionComponent implements OnInit {
   auctionForm: FormGroup;
   constructor(private cloud: CloudinaryService, private form: FormBuilder, private router: Router, private auth: AuthService, private snotifyService: SnotifyService, private auction: AuctionService, private spinner: NgxSpinnerService, private modalService: BsModalService) {
     this.auctionForm = this.form.group({
-      'endDate': ['', Validators.required],
-      'endTime': ['', Validators.required],
+      'endDateTime': ['', Validators.required],
       'startingBid': ['', Validators.compose([Validators.min(1), Validators.required])],
       'user': [this.auth.CurrentUser._id, Validators.required],
       'item': ['']
@@ -62,8 +61,7 @@ export class CreateAuctionComponent implements OnInit {
   }
 
   onSubmit() {
-    this.auctionForm.value.endDate = this.auctionForm.value.endDate.getTime();
-    this.auctionForm.value.endTime = this.auctionForm.value.endTime.getTime();
+    this.auctionForm.value.endDateTime = this.auctionForm.value.endDateTime.getTime();
     this.auctionForm.value.item = this.selectedProduct._id;
     if (this.auctionForm.invalid) {
       this.snotifyService.warning("Invalid Details", this.auth.getConfig())
@@ -80,7 +78,6 @@ export class CreateAuctionComponent implements OnInit {
             this.ngOnInit()
           }
           else if (data['status'] == 200) {
-            console.log(data['content'])
             this.showAuction = false;
             this.snotifyService.success(data['message'], this.auth.getConfig())
             this.selectedProduct = [];
