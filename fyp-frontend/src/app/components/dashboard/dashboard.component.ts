@@ -4,6 +4,7 @@ import { AuthService } from "../../services/auth.service";
 import { SnotifyService } from 'ng-snotify';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -33,7 +34,7 @@ export class DashboardComponent implements OnInit {
   minBid = 0;
   minBidDB = [];
   index;
-  constructor(private auction: AuctionService, private auth: AuthService, private snotifyService: SnotifyService, private modalService: BsModalService) { }
+  constructor(private auction: AuctionService, private auth: AuthService, private snotifyService: SnotifyService, private modalService: BsModalService, private router: Router) { }
 
   ngOnInit() {
     this.auction.getAllAuction()
@@ -71,7 +72,7 @@ export class DashboardComponent implements OnInit {
           this.showProducts = true;
           console.log(this.Products)
         }
-      }, err => { 
+      }, err => {
         console.log(err)
       })
   }
@@ -154,4 +155,8 @@ export class DashboardComponent implements OnInit {
     else this.btnFlag = false
   }
 
+  viewProductComp(product) {
+    this.auction.setProductData(product)
+    this.router.navigate(['public-product'])
+  }
 }

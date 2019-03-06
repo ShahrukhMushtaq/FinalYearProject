@@ -111,7 +111,7 @@
                                 {{prod.description}}
                             </p>
                             <p> {{prod.initialValue | currency:'Rs.':'code':'.0-0'}} </p>
-                            <a class="btn btn-pink" [routerLink]='["/contact-us"]'><i class="fa fa-clone left"></i> View
+                            <a class="btn btn-pink" (click)="viewProductComp(prod)"><i class="fa fa-clone left"></i> View
                                 Product</a>
                         </div>
                     </div>
