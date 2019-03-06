@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AuctionService {
-
+  storeData;
   constructor(private http: HttpClient) { }
 
   addItem(data) {
@@ -50,5 +50,11 @@ export class AuctionService {
   getBid(id) {
     // return this.http.get(`http://localhost:3000/api/get/bid/${id}`)
     return this.http.get(`https://auctions-app.herokuapp.com/api/get/bid/${id}`)
+  }
+  setProductData(data) {
+    this.storeData = data
+  }
+  getProductData() {
+    return this.storeData;
   }
 }
