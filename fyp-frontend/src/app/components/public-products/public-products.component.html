@@ -1,0 +1,24 @@
+<a style="margin: 35px;" routerLink=""> <i class="fa fa-arrow-left" style="font-size:30px"></i></a>
+<div class="row" *ngIf="showDetails">
+  <div class="col-md-4" style="margin-left: 34px;">
+    <div class="card">
+      <span *ngFor="let img of product.itemImage">
+        <img src={{img}} alt="" style="margin-bottom:5px">
+      </span>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header text-center" style="font-size:xx-large">
+        {{product.category}}
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">{{product.title}}</h4>
+        <p class="card-text">{{product.description}}</p>
+        <p class="card-text">{{product.initialValue | currency:'Rs.':'code':'.0-0'}}</p>
+        <p class="card-text">{{product.status? 'Available':'Not Available'}}</p>
+        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+      </div>
+    </div>
+  </div>
+</div>

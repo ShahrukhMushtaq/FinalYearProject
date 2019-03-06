@@ -28,7 +28,8 @@ import { ProductsComponent } from './components/products/products.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { ActiveAuctionComponent } from './components/active-auction/active-auction.component';
 
-import { ImagePreview } from './directives/image-preview.directive'
+import { ImagePreview } from './directives/image-preview.directive';
+import { PublicProductsComponent } from './components/public-products/public-products.component'
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -47,6 +48,7 @@ const routes: Routes = [
       { path: 'add-items', component: AddProductComponent },
     ]
   },
+  { path: 'public-product', component: PublicProductsComponent},
   { path: '**', redirectTo: '' }
 ]
 
@@ -69,7 +71,8 @@ function getToken() {
     ProductsComponent,
     AddProductComponent,
     ActiveAuctionComponent,
-    ImagePreview
+    ImagePreview,
+    PublicProductsComponent
   ],
   imports: [
     BrowserModule,
