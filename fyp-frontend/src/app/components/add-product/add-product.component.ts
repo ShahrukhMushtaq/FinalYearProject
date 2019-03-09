@@ -67,6 +67,7 @@ export class AddProductComponent implements OnInit {
                 user: this.auth.CurrentUser._id
               })
               this.spinner.hide();
+              this.router.navigate(['user/items'])
               this.snotifyService.success('Success', this.auth.getConfig())
             } else {
               this.spinner.hide();
