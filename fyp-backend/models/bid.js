@@ -5,15 +5,23 @@ const bidSchema = new mongoose.Schema({
         ref: 'Auctions',
         required: true
     },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users',
-        required: true
-    },
     bidValue: {
         type: Number,
         required: true
+    },
+    bidInfo: [{
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Users',
+            required: true
+        },
+        bidValue: {
+            type: Number,
+            required: true
+        },
+        _id: false
     }
+    ]
 },
     {
         timestamps: true
