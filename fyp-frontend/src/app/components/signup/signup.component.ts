@@ -15,7 +15,7 @@ export class SignupComponent implements OnInit {
   registrationForm: FormGroup;
   uploader;
   uplod = false;
-
+  imageURL;
   constructor(private router: Router, private auth: AuthService, private cloud: CloudinaryService, private form: FormBuilder, private snotifyService: SnotifyService) {
     this.uploader = cloud.getConnected();
     this.registrationForm = form.group({
@@ -51,22 +51,21 @@ export class SignupComponent implements OnInit {
       this.router.navigate(['user']);
     }
   }
-
   upload() {
     console.log(this.uploader)
     this.uploader.uploadAll();
     this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
       let res: any = JSON.parse(response);
-      console.log(res);
-      this.registrationForm.value.avatar = "";
-      this.registrationForm.value.avatar = res.secure_url;
+      // console.log(res);
+      this.imageURL = res.secure_url;
       this.uplod = true
       return { item, response, status, headers };
     };
   }
 
   signup() {
-    console.log(this.registrationForm.value)
+    this.registrationForm.value.avatar = this.imageURL;
+    // console.log(this.registrationForm.value)
     if (this.registrationForm.invalid) {
       this.snotifyService.warning("Invalid Details", this.auth.getConfig())
     }
