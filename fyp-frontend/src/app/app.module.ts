@@ -27,9 +27,10 @@ import { UserPageComponent } from './components/user-page/user-page.component';
 import { ProductsComponent } from './components/products/products.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { ActiveAuctionComponent } from './components/active-auction/active-auction.component';
+import { PublicProductsComponent } from './components/public-products/public-products.component';
+import { AuctionWinnersComponent } from './components/auction-winners/auction-winners.component'
 
 import { ImagePreview } from './directives/image-preview.directive';
-import { PublicProductsComponent } from './components/public-products/public-products.component'
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -48,7 +49,8 @@ const routes: Routes = [
       { path: 'add-items', component: AddProductComponent },
     ]
   },
-  { path: 'public-product', component: PublicProductsComponent},
+  { path: 'public-product', component: PublicProductsComponent },
+  { path: 'auction-won', component: AuctionWinnersComponent },
   { path: '**', redirectTo: '' }
 ]
 
@@ -72,7 +74,8 @@ function getToken() {
     AddProductComponent,
     ActiveAuctionComponent,
     ImagePreview,
-    PublicProductsComponent
+    PublicProductsComponent,
+    AuctionWinnersComponent
   ],
   imports: [
     BrowserModule,
