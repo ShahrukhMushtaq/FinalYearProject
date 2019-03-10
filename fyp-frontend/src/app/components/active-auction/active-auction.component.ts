@@ -102,7 +102,11 @@ export class ActiveAuctionComponent implements OnInit, OnDestroy {
     let bidObj = {
       bidValue: this.bidValue,
       user: this.auth.CurrentUser._id,
-      auction: this.currentAuctionId
+      auction: this.currentAuctionId,
+      bidInfo: [{
+        user: this.auth.CurrentUser._id,
+        bidValue: this.bidValue
+      }]
     }
     console.log(bidObj)
     this.auction.createBid(bidObj)
