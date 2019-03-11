@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuctionService {
   storeData;
+  expiredAuctionData;
   constructor(private http: HttpClient) { }
 
   addItem(data) {
@@ -48,13 +49,23 @@ export class AuctionService {
     return this.http.post('https://auctions-app.herokuapp.com/api/create/bid', data)
   }
   getBid(id) {
-    // return this.http.get(`http://localhost:3000/api/get/bid/${id}`)
     return this.http.get(`https://auctions-app.herokuapp.com/api/get/bid/${id}`)
+    // return this.http.get(`http://localhost:3000/api/get/bid/${id}`)
+  }
+  getBidInfo(id) {
+    return this.http.get(`https://auctions-app.herokuapp.com/api/get/bidinfo/${id}`)
+    // return this.http.get(`http://localhost:3000/api/get/bidinfo/${id}`)
   }
   setProductData(data) {
     this.storeData = data
   }
   getProductData() {
     return this.storeData;
+  }
+  setExpiredAuction(data) {
+    return this.expiredAuctionData = data;
+  }
+  getExpiredAuction() {
+    return this.expiredAuctionData;
   }
 }
