@@ -50,6 +50,7 @@ const routes: Routes = [
       { path: 'items', component: ProductsComponent },
       { path: 'add-items', component: AddProductComponent },
       { path: 'user-bids', component: UserBidsComponent },
+      { path: 'messenger', component: MessengerComponent },
     ]
   },
   { path: 'public-product', component: PublicProductsComponent },
