@@ -29,8 +29,10 @@ import { AddProductComponent } from './components/add-product/add-product.compon
 import { ActiveAuctionComponent } from './components/active-auction/active-auction.component';
 import { PublicProductsComponent } from './components/public-products/public-products.component';
 import { AuctionWinnersComponent } from './components/auction-winners/auction-winners.component'
+import { UserBidsComponent } from './components/user-bids/user-bids.component';
 
 import { ImagePreview } from './directives/image-preview.directive';
+import { MessengerComponent } from './components/messenger/messenger.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -47,6 +49,7 @@ const routes: Routes = [
       { path: 'active-auction', component: ActiveAuctionComponent },
       { path: 'items', component: ProductsComponent },
       { path: 'add-items', component: AddProductComponent },
+      { path: 'user-bids', component: UserBidsComponent },
     ]
   },
   { path: 'public-product', component: PublicProductsComponent },
@@ -75,7 +78,9 @@ function getToken() {
     ActiveAuctionComponent,
     ImagePreview,
     PublicProductsComponent,
-    AuctionWinnersComponent
+    AuctionWinnersComponent,
+    UserBidsComponent,
+    MessengerComponent
   ],
   imports: [
     BrowserModule,
