@@ -80,14 +80,15 @@
                                     *ngIf="message[i] != 'Expired' && minBidDB[i] == 0">{{auction.startingBid | currency:'Rs.':'code':'.0-0'}}</strong>
                             </span>
                             <span class="float-right">
-                                <a data-toggle="modal" data-placement="top" title="Quick Look"
-                                    (click)="modalData(auction,i)" data-target="#modalQuickView">
-                                    <i class="fa fa-eye grey-text ml-3"></i>
-                                </a>
                                 <a class="active" data-toggle="tooltip" *ngIf="auth.isAuthenticated()"
                                     data-placement="top" title="Place a Bid" [hidden]="message[i] == 'Expired'"
                                     (click)="showStaticModal(staticModal,auction._id,auction.startingBid,i)">
                                     <i class="fa fa-gavel ml-3"></i>
+                                </a>
+                                <a data-toggle="modal" data-placement="top" title="Quick Look"
+                                    (click)="modalData(auction,i)" data-target="#modalQuickView">
+                                    <i class="fa fa-eye grey-text ml-3"></i>
+                                    <!-- {{minBidDB[i].length}} -->
                                 </a>
                             </span>
                         </div>
@@ -111,7 +112,8 @@
                                 {{prod.description}}
                             </p>
                             <p> {{prod.initialValue | currency:'Rs.':'code':'.0-0'}} </p>
-                            <a class="btn btn-pink" (click)="viewProductComp(prod)"><i class="fa fa-clone left"></i> View
+                            <a class="btn btn-pink" (click)="viewProductComp(prod)"><i class="fa fa-clone left"></i>
+                                View
                                 Product</a>
                         </div>
                     </div>

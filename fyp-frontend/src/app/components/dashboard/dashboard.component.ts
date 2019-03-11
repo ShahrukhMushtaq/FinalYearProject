@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
 import { AuctionService } from "../../services/auction.service";
 import { AuthService } from "../../services/auth.service";
 import { SnotifyService } from 'ng-snotify';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   searchAuction = {
     title: '',
@@ -34,7 +34,8 @@ export class DashboardComponent implements OnInit {
   minBid = 0;
   minBidDB = [];
   index;
-  constructor(private auction: AuctionService, private auth: AuthService, private snotifyService: SnotifyService, private modalService: BsModalService, private router: Router) { }
+  expiredAuctionData = [];
+  constructor(private auction?: AuctionService, private auth?: AuthService, private snotifyService?: SnotifyService, private modalService?: BsModalService, private router?: Router) { }
 
   ngOnInit() {
     this.auction.getAllAuction()
@@ -47,7 +48,7 @@ export class DashboardComponent implements OnInit {
               .subscribe(data => {
                 if (data['status'] == 200) {
                   this.minBidDB[i] = data['content'].bidValue;
-                  console.log(this.minBidDB);
+                  // console.log(this.minBidDB);
                 }
                 else {
                   this.minBidDB[i] = 0;
@@ -70,7 +71,7 @@ export class DashboardComponent implements OnInit {
         if (data['status'] == 200) {
           this.Products = data['content']
           this.showProducts = true;
-          console.log(this.Products)
+          // console.log(this.Products)
         }
       }, err => {
         console.log(err)
@@ -83,7 +84,7 @@ export class DashboardComponent implements OnInit {
 
   clearTimer() { clearInterval(this.intervalId); }
 
-  ngOnDestroy() { this.clearTimer(); }
+  ngOnDestroy() { this.clearTimer(); this.auction.setExpiredAuction({message:this.message, auction: this.Auctions, bid: this.minBidDB}) }
 
   start() { this.countDown(); }
 
@@ -94,17 +95,25 @@ export class DashboardComponent implements OnInit {
         auction.endDateTime -= 1;
         if (auction.endDateTime === 0) {
           this.message[i] = 'Expired';
+          this.expiredAuctionData[i] = true;
         } else {
           let seconds = auction.endDateTime - Date.now();
           let date = Math.floor(seconds / (1000 * 60 * 60 * 24));
           let hour = Math.floor((seconds / (1000 * 60 * 60)) % 24)
           let min = Math.floor((seconds / 1000 / 60) % 60)
           let sec = Math.floor((seconds / 1000) % 60)
-          if (seconds < 0) { this.message[i] = 'Expired'; }
-          else this.message[i] = `${date} Days ${hour} Hours ${min} Minutes ${sec} Seconds`;
+          if (seconds < 0) { this.message[i] = 'Expired'; this.expiredAuctionData[i] = true; }
+          else {
+            this.message[i] = `${date} Days ${hour} Hours ${min} Minutes ${sec} Seconds`; this.expiredAuctionData[i] = false;
+          }
         }
       }, 1000);
     })
+  }
+
+  decideWinner() {
+    console.log(this.message)
+    console.log(this.minBidDB)
   }
 
   modalData(item, i) {
