@@ -28,6 +28,14 @@
           aria-selected="false">Auction
           Awards</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" #bid routerLink="user-bids" (click)="setClass(bid)" role="tab" aria-selected="false">Your
+          Bids</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" #msg routerLink="messenger" (click)="setClass(msg)" role="tab"
+          aria-selected="false">Messenger</a>
+      </li>
     </ul>
   </div>
 </div>
