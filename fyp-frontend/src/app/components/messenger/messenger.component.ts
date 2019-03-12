@@ -9,33 +9,44 @@ import * as _ from 'lodash';
   styleUrls: ['./messenger.component.css']
 })
 export class MessengerComponent implements OnInit {
-  errors;
-  flag = false;
+  flag = true;
   onlineUsers = [];
+  userFlag = false;
+  username = localStorage.getItem('username');
+  msg;
+  displayMsg = [];
   constructor(private chat: ChatService, private auth: AuthService) {
-    this.chat.setUserName(auth.CurrentUser._id)
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.chat.setUserName(this.username)
     this.chat.reveiveUsers()
-      .subscribe(data => {
-        console.log(data)
+      .subscribe(async (data) => {
+        // console.log("Users", data)
         if (data == true) {
-          this.errors = "UserName Already Exist"
-          this.flag = true;
+          this.onlineUsers = this.chat.getOnlineUsers();
+          this.flag = false;
+          console.log(this.onlineUsers)
         }
         else {
-          // for (let i = 0; i < data.length; i++) {
-          //   if (data[i] == this.username) {
-          //     data.splice(i, 1)
-          //   } else {
-          //     this.onlineUsers.push(data[i])
-          //   }
-          // }
           this.onlineUsers = data;
+          this.chat.setOnlineUsers(data);
           this.flag = false;
         }
       })
+    this.chat.receiveMessage().subscribe((msg) => {
+      this.displayMsg.push(msg)
+      console.log("Messages", msg)
+    })
+    this.chat.receiveOldMsg()
+      .subscribe(data => {
+        this.displayMsg = data.map(doc => doc)
+      })
+  }
+
+  sendMsg() {
+    this.chat.sendMessage(this.msg)
+    this.msg = ''
   }
 
 }

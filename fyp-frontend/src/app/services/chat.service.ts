@@ -7,7 +7,8 @@ import * as io from 'socket.io-client'
   providedIn: 'root'
 })
 export class ChatService {
-  private socket = io('http://localhost:3000')
+  private socket = io('https://auctions-app.herokuapp.com/')
+  onlinerUsers;
   constructor() { }
   sendMessage(msg) {
     this.socket.emit('send message', msg)
@@ -16,7 +17,6 @@ export class ChatService {
   receiveMessage() {
     let observable = new Observable<any>(observer => {
       this.socket.on('new message', (data) => {
-        console.log(data)
         observer.next(data)
       });
       return () => { this.socket.disconnect(); }
@@ -29,7 +29,6 @@ export class ChatService {
   reveiveUsers() {
     let observable = new Observable<any>(observer => {
       this.socket.on('allUsers', (data) => {
-        console.log(data)
         observer.next(data)
       });
       return () => { this.socket.disconnect(); }
@@ -46,4 +45,12 @@ export class ChatService {
     })
     return observable;
   }
+
+  setOnlineUsers(data) {
+    this.onlinerUsers = data;
+  }
+  getOnlineUsers() {
+    return this.onlinerUsers;
+  }
+
 }

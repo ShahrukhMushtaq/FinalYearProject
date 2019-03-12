@@ -1,6 +1,54 @@
-<p>
-  messenger works!
-</p>
-<ul>
+<!-- <ul>
   <li *ngFor="let item of onlineUsers">{{item}}</li>
-</ul>
+</ul> -->
+
+<div class="container">
+  <h3 class=" text-center">Messaging</h3>
+  <div class="messaging">
+    <div class="inbox_msg">
+      <div class="inbox_people" *ngIf="!flag">
+        <div class="headind_srch">
+          <div class="recent_heading">
+            <h4>Online Users</h4>
+          </div>
+        </div>
+        <div class="inbox_chat">
+          <div class="chat_list active_chat" *ngFor="let item of onlineUsers">
+            <div class="chat_people">
+              <div class="chat_img">
+                <i class="fa fa-circle" style="color: green;font-size: 23px;"></i>
+              </div>
+              <div class="chat_ib">
+                <h5>{{item}}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mesgs">
+        <div class="msg_history">
+          <div class="incoming_msg" *ngFor="let msgs of displayMsg">
+            <div class="received_msg">
+              <div class="received_withd_msg">
+                <p> <b>{{msgs.user}}:</b> {{msgs.message}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="type_msg">
+          <div class="input_msg_write">
+            <input type="text" class="write_msg" placeholder="Type a message" [(ngModel)]="msg"
+              (keyup.enter)="sendMsg()" />
+            <button class="msg_send_btn" type="button" (click)="sendMsg()"><i class="fa fa-paper-plane-o"
+                aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <p class="text-center top_spac"> Design by <a target="_blank" href="#">Shahrukh Mushtaq</a></p>
+
+  </div>
+</div>
+
