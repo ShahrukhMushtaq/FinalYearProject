@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
     const validPassword = await bcrypt.compare(req.body.password, user.password)
     if (!validPassword) return res.status(400).send({ message: "Invalid email or password", status: 400, content: "" })
     const token = user.generateAuthToken()
-    res.header("x-access-token", token).send({ message: "User Authenticated", status: 200, content: token })
+    res.header("x-access-token", token).send({ message: "User Authenticated", status: 200, content: { token: token, user: user } })
 }
 
 function validateUser(user) {
