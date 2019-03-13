@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
 import { AuctionService } from "../../services/auction.service";
 import { AuthService } from "../../services/auth.service";
+import { ChatService } from "../../services/chat.service";
 import { SnotifyService } from 'ng-snotify';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
@@ -35,7 +36,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   minBidDB = [];
   index;
   expiredAuctionData = [];
-  constructor(private auction?: AuctionService, private auth?: AuthService, private snotifyService?: SnotifyService, private modalService?: BsModalService, private router?: Router) { }
+  realBid = 0;
+  constructor(private auction: AuctionService, private auth: AuthService, private snotifyService: SnotifyService, private modalService: BsModalService, private router: Router, private chat: ChatService) { }
 
   ngOnInit() {
     this.auction.getAllAuction()
@@ -76,6 +78,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }, err => {
         console.log(err)
       })
+    this.chat.reveiveBids().subscribe(data1 => {
+      this.realBid = data1.bidValue;
+      this.minBidDB[data1.index] = data1.bidValue;
+      this.minBid = data1.bidValue;
+    })
   }
 
   searchAuctions() {
@@ -84,7 +91,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   clearTimer() { clearInterval(this.intervalId); }
 
-  ngOnDestroy() { this.clearTimer(); this.auction.setExpiredAuction({message:this.message, auction: this.Auctions, bid: this.minBidDB}) }
+  ngOnDestroy() { this.clearTimer(); this.auction.setExpiredAuction({ message: this.message, auction: this.Auctions, bid: this.minBidDB }) }
 
   start() { this.countDown(); }
 
@@ -132,13 +139,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
         bidValue: this.bidValue
       }]
     }
+    this.chat.setBids({ bidValue: this.bidValue, index: this.index })
     console.log(bidObj)
     this.auction.createBid(bidObj)
       .subscribe(data => {
         if (data['status'] == 200) {
-          console.log(data)
-          this.minBid = data['content'].bidValue;
-          this.minBidDB[this.index] = data['content'].bidValue;
+          this.minBid = this.realBid;
+          this.minBidDB[this.index] = this.realBid;
           this.modalRef.hide();
           this.modalRef = this.modalService.show(template)
           this.btnFlag = true

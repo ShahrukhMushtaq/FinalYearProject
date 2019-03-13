@@ -53,4 +53,16 @@ export class ChatService {
     return this.onlinerUsers;
   }
 
+  setBids(data) {
+    this.socket.emit('newBid', data)
+  }
+  reveiveBids() {
+    let observable = new Observable<any>(observer => {
+      this.socket.on('bids', (data) => {
+        observer.next(data)
+      });
+      return () => { this.socket.disconnect(); }
+    })
+    return observable;
+  }
 }
