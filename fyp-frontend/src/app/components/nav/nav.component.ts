@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class NavComponent implements OnInit {
   profilePic;
   bool = false;
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(public auth: AuthService, private router: Router) { }
 
   ngOnInit() {
     if (this.auth.isAuthenticated()) {
