@@ -1,0 +1,13 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let bid of Userbid let i = index">
+          {{i}}){{username}} &nbsp;&nbsp;&nbsp; {{bid.bidValue}}
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</div>

@@ -30,23 +30,23 @@ export class AuctionService {
   }
 
   createAuction(data) {
-    // return this.http.post('http://localhost:3000/api/create/auction', data)
     return this.http.post('https://auctions-app.herokuapp.com/api/create/auction', data)
+    // return this.http.post('http://localhost:3000/api/create/auction', data)
   }
 
   getAuction(id) {
-    // return this.http.get(`http://localhost:3000/api/get/auction/${id}`)
     return this.http.get(`https://auctions-app.herokuapp.com/api/get/auction/${id}`)
+    // return this.http.get(`http://localhost:3000/api/get/auction/${id}`)
   }
 
   getAllAuction() {
-    // return this.http.get('http://localhost:3000/api/get/auction')
     return this.http.get('https://auctions-app.herokuapp.com/api/get/auction')
+    // return this.http.get('http://localhost:3000/api/get/auction')
   }
 
   createBid(data) {
-    // return this.http.post('http://localhost:3000/api/create/bid', data)
     return this.http.post('https://auctions-app.herokuapp.com/api/create/bid', data)
+    // return this.http.post('http://localhost:3000/api/create/bid', data)
   }
   getBid(id) {
     return this.http.get(`https://auctions-app.herokuapp.com/api/get/bid/${id}`)
@@ -55,6 +55,10 @@ export class AuctionService {
   getBidInfo(id) {
     return this.http.get(`https://auctions-app.herokuapp.com/api/get/bidinfo/${id}`)
     // return this.http.get(`http://localhost:3000/api/get/bidinfo/${id}`)
+  }
+  getAllBids() {
+    return this.http.get('https://auctions-app.herokuapp.com/api/get/all/bids')
+    // return this.http.get('http://localhost:3000/api/get/all/bids')
   }
   setProductData(data) {
     this.storeData = data
