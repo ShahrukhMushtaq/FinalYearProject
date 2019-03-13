@@ -15,6 +15,7 @@ var getAllAuction = require('./auction/get-auction-all')
 var bid = require('./bids/bid')
 var getBid = require('./bids/get-bid')
 var getBidInfo = require('./bids/get-bid-info')
+var getAllBids = require('./bids/get-all-bids')
 
 const multer = require('multer');
 const storage = multer.diskStorage({
@@ -49,5 +50,6 @@ router.get('/get/auction', getAllAuction)
 router.post('/create/bid', auth, bid)
 router.get('/get/bid/:auctionID', getBid)
 router.get('/get/bidinfo/:auctionID', auth, getBidInfo)
+router.get('/get/all/bids', auth, getAllBids)
 
 module.exports = router;
