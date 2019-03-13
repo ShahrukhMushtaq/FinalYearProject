@@ -112,6 +112,12 @@ io.on('connection', (socket) => {
     })
   })
 
+  socket.on('newBid', (data) => {
+    if (data) {
+      io.emit('bids', data)
+    }
+  })
+
   socket.on('userName', (data) => {
     let flag = false;
     if (data in users) {
