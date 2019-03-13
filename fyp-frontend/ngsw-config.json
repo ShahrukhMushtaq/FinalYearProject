@@ -1,0 +1,53 @@
+{
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/*.css",
+          "/*.js"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/**"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "tasks-users-api",
+      "urls": [
+        "/api/my/profile",
+        "/api/my/update-profile/**",
+        "/api/get/all/bids",
+        "/api/get/bidinfo/**",
+        "/api/get/bid/**",
+        "/api/create/bid",
+        "/api/get/auction",
+        "/api/get/auction/**",
+        "/api/create/auction",
+        "/api/update/item/**",
+        "/api/getAll/item",
+        "/api/get/item/**",
+        "/api/add/item"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 50,
+        "maxAge": "1h",
+        "timeout": "5s"
+      }
+    }
+  ]
+}

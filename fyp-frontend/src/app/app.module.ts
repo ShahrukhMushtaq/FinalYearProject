@@ -33,6 +33,8 @@ import { UserBidsComponent } from './components/user-bids/user-bids.component';
 
 import { ImagePreview } from './directives/image-preview.directive';
 import { MessengerComponent } from './components/messenger/messenger.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -58,7 +60,7 @@ const routes: Routes = [
   { path: '**', redirectTo: '' }
 ]
 
-function getToken() {
+export function getToken() {
   return localStorage.getItem('token');
 }
 
@@ -101,7 +103,7 @@ function getToken() {
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
-    OwlDateTimeModule, OwlNativeDateTimeModule
+    OwlDateTimeModule, OwlNativeDateTimeModule, ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
