@@ -47,7 +47,6 @@
 
 .received_msg {
   display: inline-block;
-  padding: 0 0 0 10px;
   vertical-align: top;
   width: 100%;
  }
@@ -60,7 +59,7 @@
   padding: 5px 10px 5px 12px;
   width: 100%;
 }
-.received_withd_msg { width: 57%;}
+.received_withd_msg { width: 57%; text-align: left}
 .mesgs {
   float: left;
   padding: 30px 15px 0 25px;
