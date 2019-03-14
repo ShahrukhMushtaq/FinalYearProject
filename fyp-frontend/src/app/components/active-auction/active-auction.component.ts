@@ -53,7 +53,7 @@ export class ActiveAuctionComponent implements OnInit, OnDestroy {
                 }
               }, err => {
                 this.minBidDB[i] = 0;
-                console.log(err)
+                // console.log(err)
               })
           })
           this.showAuctions = true;
@@ -108,7 +108,7 @@ export class ActiveAuctionComponent implements OnInit, OnDestroy {
         bidValue: this.bidValue
       }]
     }
-    console.log(bidObj)
+    // console.log(bidObj)
     this.auction.createBid(bidObj)
       .subscribe(data => {
         if (data['status'] == 200) {
@@ -124,7 +124,7 @@ export class ActiveAuctionComponent implements OnInit, OnDestroy {
           this.snotifyService.warning(data['message'], this.auth.getConfig())
         }
       }, err => {
-        console.log(err)
+        // console.log(err)
         this.btnFlag = true
         this.snotifyService.error("Error Kab Khatam hongy", this.auth.getConfig())
       })

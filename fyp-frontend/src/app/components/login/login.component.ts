@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
           }
         }, err => {
           this.snotifyService.error(err.error.message, this.auth.getConfig())
-          console.log(err)
+          // console.log(err)
         })
     }
   }

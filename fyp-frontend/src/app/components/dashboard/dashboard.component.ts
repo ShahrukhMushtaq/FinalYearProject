@@ -6,6 +6,7 @@ import { SnotifyService } from 'ng-snotify';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -37,9 +38,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   index;
   expiredAuctionData = [];
   realBid = 0;
-  constructor(private auction: AuctionService, private auth: AuthService, private snotifyService: SnotifyService, private modalService: BsModalService, private router: Router, private chat: ChatService) { }
+  constructor(private auction: AuctionService, private auth: AuthService, private snotifyService: SnotifyService, private modalService: BsModalService, private router: Router, private chat: ChatService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.spinner.show();
     this.auction.getAllAuction()
       .subscribe(res => {
         if (res['status'] == 200) {
@@ -51,13 +53,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 if (data['status'] == 200) {
                   this.minBidDB[i] = data['content'].bidValue;
                   // console.log(this.minBidDB);
+                  this.spinner.hide();
                 }
                 else {
                   this.minBidDB[i] = 0;
                 }
               }, err => {
                 this.minBidDB[i] = 0;
-                console.log(err)
+                // console.log(err)
               })
           })
           this.showAuctions = true;
@@ -65,7 +68,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.snotifyService.warning(res['message'], this.auth.getConfig())
         }
       }, err => {
-        console.log(err)
+        // console.log(err)
         this.snotifyService.error("Internet Problem", this.auth.getConfig())
       })
     this.auction.getAllItem()
@@ -76,7 +79,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           // console.log(this.Products)
         }
       }, err => {
-        console.log(err)
+        // console.log(err)
       })
     this.chat.reveiveBids().subscribe(data1 => {
       this.realBid = data1.bidValue;
@@ -86,7 +89,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   searchAuctions() {
-    console.log(this.searchAuction)
+    // console.log(this.searchAuction)
   }
 
   clearTimer() { clearInterval(this.intervalId); }
@@ -140,7 +143,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }]
     }
     this.chat.setBids({ bidValue: this.bidValue, index: this.index })
-    console.log(bidObj)
+    // console.log(bidObj)
     this.auction.createBid(bidObj)
       .subscribe(data => {
         if (data['status'] == 200) {
@@ -156,7 +159,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.snotifyService.warning(data['message'], this.auth.getConfig())
         }
       }, err => {
-        console.log(err)
+        // console.log(err)
         this.btnFlag = true
         this.snotifyService.error("Error Kab Khatam hongy", this.auth.getConfig())
       })

@@ -33,11 +33,11 @@ export class AddProductComponent implements OnInit {
   }
 
   upload() {
-    console.log(this.uploader)
+    // console.log(this.uploader)
     this.uploader.uploadAll();
     this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
       let res: any = JSON.parse(response);
-      console.log(res);
+      // console.log(res);
       // this.productForm.value.itemImage = [];
       this.productForm.value.itemImage.push(res.secure_url);
       this.uplod = true
@@ -48,7 +48,7 @@ export class AddProductComponent implements OnInit {
   onSubmit() {
     this.spinner.show();
     if (this.productForm.invalid) {
-      console.log(this.productForm.value)
+      // console.log(this.productForm.value)
       this.spinner.hide();
       this.snotifyService.warning("Invalid Details", this.auth.getConfig())
     }
@@ -82,6 +82,6 @@ export class AddProductComponent implements OnInit {
   }
 
   selectFiles() {
-    console.log(this.uploader)
+    // console.log(this.uploader)
   }
 }

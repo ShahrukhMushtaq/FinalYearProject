@@ -49,12 +49,12 @@ export class AuctionWinnersComponent implements OnInit {
               this.winnerName[i] = "No"
             }
           })
-        console.log(this.winnerName)
+        // console.log(this.winnerName)
       }
       this.showWinners = true;
     }
     else {
-      console.log("No data")
+      // console.log("No data")
       this.showWinners = false;
     }
   }

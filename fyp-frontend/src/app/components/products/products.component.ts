@@ -52,20 +52,20 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.auction.getItem(this.auth.CurrentUser._id)
       .subscribe(res => {
-        console.log(res)
+        // console.log(res)
         this.products = res['content']
       }, err => {
-        console.log(err)
+        // console.log(err)
         this.snotifyService.error(err.error.message, this.auth.getConfig())
       })
   }
 
   upload() {
-    console.log(this.uploader)
+    // console.log(this.uploader)
     this.uploader.uploadAll();
     this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
       let res: any = JSON.parse(response);
-      console.log(res);
+      // console.log(res);
       this.item.itemImage.push(res.secure_url);
       this.uplod = true
       return { item, response, status, headers };
@@ -73,7 +73,7 @@ export class ProductsComponent implements OnInit {
   }
 
   updateProduct() {
-    console.log(this.item)
+    // console.log(this.item)
     this.spinner.show();
     if (!this.item) {
       this.spinner.hide();
@@ -137,7 +137,7 @@ export class ProductsComponent implements OnInit {
   }
 
   addFiles() {
-    console.log(this.uploader)
+    // console.log(this.uploader)
   }
 
   removePicFromUploader(i) {

@@ -52,7 +52,7 @@ export class SignupComponent implements OnInit {
     }
   }
   upload() {
-    console.log(this.uploader)
+    // console.log(this.uploader)
     this.uploader.uploadAll();
     this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
       let res: any = JSON.parse(response);

@@ -31,7 +31,7 @@ export class HttpInterceptorService implements HttpInterceptor {
     return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
-          console.log('event--->>>', event);
+          // console.log('event--->>>', event);
           let token = event.headers.get('x-access-token')
           if (token) {
             localStorage.setItem("token", token);

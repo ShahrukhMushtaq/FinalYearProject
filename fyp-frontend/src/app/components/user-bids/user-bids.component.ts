@@ -21,19 +21,16 @@ export class UserBidsComponent implements OnInit {
   ngOnInit() {
     this.auction.getAllBids()
       .subscribe(data => {
-        // console.log(data)
         if (data['status'] == 200) {
           for (let i = 0; i < data['content'].length; i++) {
             this.bidInfo.push(data['content'][i].bidInfo)
           }
         }
-        console.log(this.bidInfo)
         for (let j = 0; j < this.bidInfo.length; j++) {
           for (let k = 0; k < this.bidInfo[j].length; k++) {
             this.bidInfo1.push(this.bidInfo[j][k])
           }
         }
-        console.log(this.bidInfo1)
         this.bidInfo1.map(bid => {
           if (bid.user == this.auth.CurrentUser._id) {
             this.Userbid.push(bid)

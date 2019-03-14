@@ -67,7 +67,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfile() {
-    console.log(this.userData)
+    // console.log(this.userData)
     this.spinner.show();
     this.auth.updateUserProfile(this.userData)
       .subscribe(res => {
@@ -82,11 +82,11 @@ export class ProfileComponent implements OnInit {
   }
 
   upload() {
-    console.log(this.uploader.queue)
+    // console.log(this.uploader.queue)
     this.uploader.queue[0].upload();
     this.uploader.queue[0].onSuccess = (response: string, status: number, headers: any): any => {
       let res: any = JSON.parse(response);
-      console.log(res);
+      // console.log(res);
       this.userData.avatar = res.secure_url;
       return { response, status, headers };
     };

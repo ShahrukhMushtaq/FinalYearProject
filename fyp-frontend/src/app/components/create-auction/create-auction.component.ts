@@ -35,7 +35,7 @@ export class CreateAuctionComponent implements OnInit {
   ngOnInit() {
     this.auction.getItem(this.auth.CurrentUser._id)
       .subscribe(res => {
-        console.log(res)
+        // console.log(res)
         if (res['status'] == 200) {
           _.findIndex(res['content'], (item) => {
             if (item.status == 'true') {
@@ -47,14 +47,14 @@ export class CreateAuctionComponent implements OnInit {
           this.snotifyService.warning(res['message'], this.auth.getConfig())
         }
       }, err => {
-        console.log(err)
+        // console.log(err)
         this.snotifyService.error("Internet Problem", this.auth.getConfig())
       })
   }
 
   onSelect(newProduct) {
     this.selectedProduct = newProduct
-    console.log(this.selectedProduct)
+    // console.log(this.selectedProduct)
     if (this.selectedProduct) {
       this.showAuction = true;
     }
@@ -67,7 +67,7 @@ export class CreateAuctionComponent implements OnInit {
       this.snotifyService.warning("Invalid Details", this.auth.getConfig())
     }
     else {
-      console.log(this.auctionForm.value)
+      // console.log(this.auctionForm.value)
       this.auction.createAuction(this.auctionForm.value)
         .subscribe(data => {
           if (data['status'] == 201) {

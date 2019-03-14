@@ -12,7 +12,7 @@ export class PublicProductsComponent implements OnInit {
   constructor(private auction: AuctionService) { }
 
   ngOnInit() {
-    console.log(this.auction.getProductData())
+    // console.log(this.auction.getProductData())
     this.product = this.auction.getProductData()
     if (this.product) {
       this.showDetails = true;

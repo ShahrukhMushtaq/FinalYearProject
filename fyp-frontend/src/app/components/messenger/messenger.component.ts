@@ -26,7 +26,7 @@ export class MessengerComponent implements OnInit {
         if (data == true) {
           this.onlineUsers = this.chat.getOnlineUsers();
           this.flag = false;
-          console.log(this.onlineUsers)
+          // console.log(this.onlineUsers)
         }
         else {
           this.onlineUsers = data;
@@ -36,7 +36,7 @@ export class MessengerComponent implements OnInit {
       })
     this.chat.receiveMessage().subscribe((msg) => {
       this.displayMsg.push(msg)
-      console.log("Messages", msg)
+      // console.log("Messages", msg)
     })
     this.chat.receiveOldMsg()
       .subscribe(data => {
