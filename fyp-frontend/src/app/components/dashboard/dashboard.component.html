@@ -1,41 +1,35 @@
 <main>
     <div class="container-fluid text-center">
-        <div class="card card-cascade wider">
-            <div class="card-body text-center wow fadeIn" data-wow-delay="0.9s">
-                <h4 class="card-title"><strong>Search Auctions</strong></h4>
-                <div class="row text-center">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <div class="card card-cascade wider">
+                    <div class="card-body text-center wow fadeIn" data-wow-delay="0.9s">
+                        <h4 class="card-title"><strong>Search Auctions</strong></h4>
                         <div class="form-row">
-                            <div class="col">
+                            <div class="col-6">
                                 <div class="md-form">
                                     <input type="text" class="form-control" [(ngModel)]="searchAuction.title"
                                         placeholder="By Title">
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-3">
                                 <div class="md-form">
-                                    <input type="text" class="form-control" [(ngModel)]="searchAuction.category"
-                                        placeholder="By Category">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col">
-                                <div class="md-form">
-                                    <input type="text" placeholder="By Date" class="form-control"
-                                        [(ngModel)]="searchAuction.date" bsDatepicker>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="md-form">
-                                    <input type="number" class="form-control" [(ngModel)]="searchAuction.minbid"
-                                        placeholder="By Minimum Bid">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="md-form">
-                                    <input type="number" class="form-control" [(ngModel)]="searchAuction.maxbid"
-                                        placeholder="By Maximum Bid">
+                                    <select class="my-select p-2" [(ngModel)]="searchAuction.category">
+                                        <option disabled value="">Choose Category</option>
+                                        <option value="Mobile & Accessories">Mobile & Accessories</option>
+                                        <option value="Laptop & Computer">Laptop & Computer</option>
+                                        <option value="Clothes">Clothes</option>
+                                        <option value="Electronics & Home Appliances">Electronics & Home Appliances
+                                        </option>
+                                        <option value="Property">Property</option>
+                                        <option value="Bikes">Bikes</option>
+                                        <option value="Furniture And Home Decor">Furniture And Home Decor</option>
+                                        <option value="Sports">Sports</option>
+                                        <option value="Educational">Educational</option>
+                                        <option value="Fashion & Beauty">Fashion & Beauty</option>
+                                        <option value="Kids Garments">Kids Garments</option>
+                                        <option value="Vehicles">Vehicles</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -48,6 +42,46 @@
             </div>
         </div>
     </div>
+    <div class="row card" *ngIf="showSearchedAuctions" style="top: 10px;">
+        <h3 class="card-title text-center"><strong>Searched Auctions</strong></h3>
+        <div class="col-lg-3 col-md-6 mb-lg-0 mb-4" *ngFor="let auction of searchedAuctions let i = index">
+            <div class="card card-cascade narrower card-ecommerce" style="margin:15px">
+                <div class="view view-cascade overlay">
+                    <img src={{auction.item.itemImage[0]}} class="card-img-top" alt="sample photo"
+                        style="height: 150px;">
+                    <a>
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
+                <div class="card-body card-body-cascade text-center">
+                    <h4 class="card-title">
+                        <strong>
+                            <a>{{auction.item.title}}</a>
+                        </strong>
+                    </h4>
+                    <div class="card-footer px-1">
+                        <span class="float-left font-weight-bold">
+                            <strong
+                                *ngIf="message[i] == 'Expired' && minBidDB[i] > 0"><s>{{minBidDB[i] | currency:'Rs.':'code':'.0-0'}}</s></strong>
+                            <strong
+                                *ngIf="message[i] == 'Expired' && minBidDB[i] == 0"><s>{{auction.startingBid | currency:'Rs.':'code':'.0-0'}}</s></strong>
+                            <strong
+                                *ngIf="message[i] != 'Expired' && minBidDB[i] > 0">{{minBidDB[i] | currency:'Rs.':'code':'.0-0'}}</strong>
+                            <strong
+                                *ngIf="message[i] != 'Expired' && minBidDB[i] == 0">{{auction.startingBid | currency:'Rs.':'code':'.0-0'}}</strong>
+                        </span>
+                        <span class="float-right">
+                            <a data-toggle="modal" data-placement="top" title="Quick Look"
+                                (click)="modalData(auction,i)" data-target="#modalQuickView">
+                                <i class="fa fa-eye grey-text ml-3"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card" style="margin: 20px">
         <h3 class="card-title text-center"><strong>Auctions</strong></h3>
         <div class="row" style="margin: 15px" *ngIf="showAuctions">

@@ -38,6 +38,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   index;
   expiredAuctionData = [];
   realBid = 0;
+  showSearchedAuctions = false;
+  searchedAuctions = [];
   constructor(private auction: AuctionService, private auth: AuthService, private snotifyService: SnotifyService, private modalService: BsModalService, private router: Router, private chat: ChatService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
@@ -94,7 +96,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   searchAuctions() {
-    // console.log(this.searchAuction)
+    this.searchedAuctions = [];
+    this.Auctions.map(auction => {
+      if (auction.item.title == this.searchAuction.title || auction.item.category == this.searchAuction.category) {
+        this.searchedAuctions.push(auction)
+        this.showSearchedAuctions = true;
+      }
+    })
   }
 
   clearTimer() { clearInterval(this.intervalId); }
