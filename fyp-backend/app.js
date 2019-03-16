@@ -115,6 +115,10 @@ io.on('connection', (socket) => {
   socket.on('newBid', (data) => {
     if (data) {
       io.emit('bids', data)
+      socket.broadcast.emit("notify", {
+        user: data.username,
+        bidValue: data.bidValue
+      })
     }
   })
 
