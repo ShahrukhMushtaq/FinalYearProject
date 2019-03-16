@@ -86,6 +86,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.minBidDB[data1.index] = data1.bidValue;
       this.minBid = data1.bidValue;
     })
+    this.chat.notifyAll().subscribe(data => {
+      if (data) {
+        this.snotifyService.info(`${data.user} made a bid of Rs.${data.bidValue}`, this.auth.getConfig())
+      }
+    })
   }
 
   searchAuctions() {
@@ -142,7 +147,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         bidValue: this.bidValue
       }]
     }
-    this.chat.setBids({ bidValue: this.bidValue, index: this.index })
+    this.chat.setBids({ bidValue: this.bidValue, index: this.index, username: localStorage.getItem("username") })
     // console.log(bidObj)
     this.auction.createBid(bidObj)
       .subscribe(data => {
