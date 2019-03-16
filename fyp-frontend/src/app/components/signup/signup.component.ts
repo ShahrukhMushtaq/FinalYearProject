@@ -73,7 +73,8 @@ export class SignupComponent implements OnInit {
       this.auth.registerUser(this.registrationForm.value)
         .subscribe(res => {
           if (res['status'] == 200) {
-            this.snotifyService.success(res['messsage'], this.auth.getConfig())
+            this.snotifyService.success("Successfully Registered", this.auth.getConfig())
+            localStorage.setItem('username', res['content'].email)
             this.router.navigate(['user'])
           } else {
             this.snotifyService.warning(res['messsage'], this.auth.getConfig())
