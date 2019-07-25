@@ -21,10 +21,12 @@ var get = require("./offersAPI/get");
 var post = require("./offersAPI/post");
 var put = require("./offersAPI/put");
 var remove = require("./offersAPI/remove");
+var getCategories = require("./offersAPI/getCat");
 
 var addToken = require("./tokensAPI/post");
 var updateToken = require("./tokensAPI/put");
 const multer = require("multer");
+const _ = require("lodash");
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -67,5 +69,7 @@ router.delete("/offer/:id", remove);
 
 router.post("/token", addToken);
 router.put("/token/:id", updateToken);
+
+router.get("/categories", getCategories);
 
 module.exports = router;

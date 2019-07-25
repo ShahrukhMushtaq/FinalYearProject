@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
     item.title = req.body.title;
     item.description = req.body.description;
     // item.status = req.body.status;
-    // item.category = req.body.category;
+    item.category = req.body.category;
     item.itemImage = req.body.itemImage;
     item.save(err => {
       if (err) {
